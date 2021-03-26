@@ -4,10 +4,25 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 
 //user model 
-
 const User = require("../models/users"); 
 
+passport.serializeUser((user, done) => {
 
+    done(null, user.id); 
+
+}); 
+
+passport.deserializeUser( async (id, done) => {
+
+    try {
+        const user = await User.findById(id); 
+
+        done(null, user); 
+    }
+    catch(e){
+        console.log(e.message); 
+    }
+})
 
 // passport
 passport.use(
@@ -25,11 +40,12 @@ passport.use(
             // if the user is new here, make a new account for them
             if(!userTaken){
 
-                await new User({username: profile.name.givenName, googleId: profile.id}).save(); 
+                const newUser = await new User({username: profile.name.givenName, googleId: profile.id}).save(); 
                 console.log("new user created"); 
+                done(null, newUser)
             }
             else {
-                console.log(userTaken); 
+                done(null, userTaken); 
             }
   
         }
@@ -49,6 +65,20 @@ passport.use(
   );
   
   router.get("/auth/google/callback", passport.authenticate("google")) // this now uses the google strategy call back URL up above
+
+
+  router.get("/logout", (req, res) => {
+
+    res.send(req.user + " was logged out")
+
+    req.logout(); 
+
+  }); 
+
+
+  router.get("/current_user", (req, res) => {
+    res.send(req.user); 
+  })
 
 
 
