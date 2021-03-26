@@ -7,26 +7,14 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String, 
         required: true, 
-        unique: true, 
         trim: true,
         min: 6,
         max: 255
-    }, 
-    email: {
+    },
+    googleId: {
         type: String, 
         required: true, 
-        unique: true, 
         trim: true, 
-        lowercase: true, 
-        min: 6, 
-        max: 255
-    }, 
-    password: {
-        type: String,
-        required: true,
-        trim: true,  
-        max: 1024, 
-        min: 6, 
     }, 
     date: {
         type: Date, 
