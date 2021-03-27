@@ -1,6 +1,26 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
-const App = () => {
+import { connect } from "react-redux"; 
+
+//function from our actions
+import { fetchUser } from "../actions"; 
+
+
+
+
+const App = ({ fetchUser }) => {
+
+
+
+    useEffect(() => {
+
+
+        fetchUser(); 
+
+    })
+
+
+
     return (
         <div>
             Hello There!
@@ -8,4 +28,11 @@ const App = () => {
     )
 }
 
-export default App
+
+const mapStateToProps = state => {
+    return {
+        
+    }
+}
+
+export default connect(mapStateToProps, { fetchUser })(App)

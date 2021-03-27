@@ -3,12 +3,20 @@ import axios from "axios";
 import { FETCH_USER } from './types';
 
 
-export const fetchUser = async () => {
+export const fetchUser = () => async dispatch => {
 
+    try {
+        const response = await axios.get("https://code-typing.herokuapp.com/current_user"); 
 
-    return function(dispatch) {
-        const response = axios.get("http://localhost:5000/api/users"); 
+        console.log(response); 
 
-        
+        dispatch({type: "FETCH_USER", payload: response})
     }
+    catch(e){
+        console.log(e.message); 
+    }
+
 }
+
+
+    
