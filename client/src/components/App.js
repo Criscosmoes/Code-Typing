@@ -17,7 +17,7 @@ const App = ({ fetchUser, loginUser }) => {
 
         fetchUser(); 
 
-    }, [])
+    }, [fetchUser])
 
 
 
