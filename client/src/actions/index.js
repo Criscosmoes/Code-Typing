@@ -19,4 +19,20 @@ export const fetchUser = () => async dispatch => {
 }
 
 
+export const loginUser = () => async dispatch => {
+
+
+    try {
+        const response = await axios.get("https://code-typing.herokuapp.com/auth/google")
+
+        console.log(response); 
+    }
+    catch(e){
+        console.log(e.message); 
+    }
+}
+
+
+
+
     

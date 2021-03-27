@@ -3,12 +3,12 @@ import React, {useEffect} from 'react'
 import { connect } from "react-redux"; 
 
 //function from our actions
-import { fetchUser } from "../actions"; 
+import { fetchUser, loginUser } from "../actions"; 
 
 
 
 
-const App = ({ fetchUser }) => {
+const App = ({ fetchUser, loginUser }) => {
 
 
 
@@ -17,12 +17,12 @@ const App = ({ fetchUser }) => {
 
         fetchUser(); 
 
-    })
+    }, [])
 
 
 
     return (
-        <div>
+        <div onClick={loginUser}>
             Hello There!
         </div>
     )
@@ -31,8 +31,8 @@ const App = ({ fetchUser }) => {
 
 const mapStateToProps = state => {
     return {
-        
+        username: state.currentUser.username, 
     }
 }
 
-export default connect(mapStateToProps, { fetchUser })(App)
+export default connect(mapStateToProps, { fetchUser, loginUser })(App)

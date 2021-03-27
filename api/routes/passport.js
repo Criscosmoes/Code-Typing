@@ -20,7 +20,8 @@ passport.deserializeUser( async (id, done) => {
         done(null, user); 
     }
     catch(e){
-        console.log(e.message); 
+        console.log(e.message);
+        done(null, id);     
     }
 })
 
@@ -31,7 +32,6 @@ passport.use(
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         callbackURL: "https://code-typing.herokuapp.com/auth/google/callback", // this links up with server.get("/auth/google/callback")
-        proxy: true,  
       },
        async (accessToken, refreshToken, profile, done) => {
   
