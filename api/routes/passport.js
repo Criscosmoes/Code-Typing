@@ -69,7 +69,7 @@ passport.use(
 
   router.get("/current_user", (req, res) => {
     
-    res.send(req); 
+    res.send(req.user); 
   })
 
 
