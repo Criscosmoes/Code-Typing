@@ -78,10 +78,13 @@ passport.use(
 
 
   router.get("/current_user", (req, res) => {
-    res.send(req.user); 
+    try {
+      res.status(200).send(req.user); 
+    }
+    catch(e){
+      res.status(500).send(e.message); 
+    }
   })
-
-
 
 
   module.exports = router; 
