@@ -67,10 +67,9 @@ passport.use(
     res.send(req.user); 
   }); 
 
-
   router.get("/current_user", (req, res) => {
     
-    res.send(req.user); 
+    res.send(req); 
   })
 
 
