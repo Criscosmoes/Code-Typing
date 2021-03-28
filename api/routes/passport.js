@@ -59,7 +59,7 @@ passport.use(
   );
   
   router.get(
-    "https://code-typing.herokuapp.com/auth/google",
+    "/auth/google",
     passport.authenticate("google", {
       scope: ["profile", "email"],
     })
