@@ -12,17 +12,11 @@ passport.serializeUser((user, done) => {
 
 }); 
 
-passport.deserializeUser( async (id, done) => {
+passport.deserializeUser((id, done) => {
 
-    try {
-        const user = await User.findById(id); 
-
-        done(null, user); 
-    }
-    catch(e){
-        console.log(e.message);
-        done(null, id);     
-    }
+    User.findById(id).then(user => {
+      done(null, user); 
+    })
 })
 
 // passport
@@ -31,7 +25,7 @@ passport.use(
       {
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "https://code-typing.herokuapp.com/auth/google/callback", // this links up with server.get("/auth/google/callback")
+        callbackURL: "http://localhost:5000/auth/google/callback", // this links up with server.get("/auth/google/callback")
       },
        async (accessToken, refreshToken, profile, done) => {
   
@@ -41,12 +35,12 @@ passport.use(
             // if the user is new here, make a new account for them
             if(!userTaken){
 
-                const newUser = await new User({username: profile.name.givenName, googleId: profile.id}).save(); 
-                console.log("new user created"); 
-                done(null, newUser)
+              const newUser = await new User({username: profile.name.givenName, googleId: profile.id}).save(); 
+              console.log("new user created"); 
+              done(null, newUser)
             }
             else {
-                done(null, userTaken); 
+              done(null, userTaken); 
             }
   
         }
@@ -69,21 +63,14 @@ passport.use(
 
 
   router.get("/logout", (req, res) => {
-
-    res.send(req.user + " was logged out")
-
     req.logout(); 
-
+    res.send(req.user); 
   }); 
 
 
   router.get("/current_user", (req, res) => {
-    try {
-      res.status(200).send(req.user); 
-    }
-    catch(e){
-      res.status(500).send(e.message); 
-    }
+    
+    res.send(req.user); 
   })
 
 

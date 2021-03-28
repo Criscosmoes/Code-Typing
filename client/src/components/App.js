@@ -23,7 +23,7 @@ const App = ({ fetchUser, loginUser }) => {
 
     return (
         <div onClick={loginUser}>
-            Hello There!
+           <a href="/auth/google">Sign in with Google</a>
         </div>
     )
 }

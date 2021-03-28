@@ -6,7 +6,7 @@ import { FETCH_USER } from './types';
 export const fetchUser = () => async dispatch => {
 
     try {
-        const response = await axios.get("https://code-typing.herokuapp.com/current_user"); 
+        const response = await axios.get("http://localhost:5000/current_user"); 
 
         console.log(response); 
     }
