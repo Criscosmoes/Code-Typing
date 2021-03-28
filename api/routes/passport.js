@@ -25,7 +25,7 @@ passport.use(
       {
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "/auth/google/callback", // this links up with server.get("/auth/google/callback")
+        callbackURL: "https://code-typing.herokuapp.com/auth/google/callback", // this links up with server.get("/auth/google/callback")
       },
        async (accessToken, refreshToken, profile, done) => {
   
