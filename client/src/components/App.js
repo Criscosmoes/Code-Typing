@@ -5,7 +5,11 @@ import { connect } from "react-redux";
 //function from our actions
 import { fetchUser, loginUser } from "../actions"; 
 
+import "../App.css"; 
 
+// components
+import NavBar from './NavBar';
+import TypingArea from './TypingArea';
 
 
 const App = ({ fetchUser, loginUser }) => {
@@ -22,8 +26,9 @@ const App = ({ fetchUser, loginUser }) => {
 
 
     return (
-        <div onClick={loginUser}>
-           <a href="/auth/google">Sign in with Google</a>
+        <div>
+           <NavBar />
+           <TypingArea />
         </div>
     )
 }
@@ -36,3 +41,7 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { fetchUser, loginUser })(App)
+
+
+
+//<a href="/auth/google">Sign in with Google</a>
