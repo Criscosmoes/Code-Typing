@@ -517,10 +517,10 @@ const TypingArea = ({username, logoutUser}) => {
             <div className="navigation">
                 <div className="link--container">
                     <h3>Languages</h3>
-                    <Link to="html" className="languages"><AiOutlineHtml5 className="icon"/><h2>HTML</h2></Link>
-                    <Link to="css" className="languages"><IoLogoCss3 className="icon"/><h2>CSS</h2></Link>
+                    <Link onClick={() => changeLanguage("HTML")} to="html" className="languages"><AiOutlineHtml5 className="icon"/><h2>HTML</h2></Link>
+                    <Link onClick={() => changeLanguage("CSS")} to="css" className="languages"><IoLogoCss3 className="icon"/><h2>CSS</h2></Link>
                     <Link onClick={() => changeLanguage("JavaScript")} to="javascript" className="languages"><SiJavascript className="icon"/><h2>JavaScript</h2></Link>
-                    <Link to="python" className="languages"><SiPython className="icon"/><h2>Python</h2></Link>
+                    <Link onClick={() => changeLanguage("Python")} to="python" className="languages"><SiPython className="icon"/><h2>Python</h2></Link>
                 </div>
             </div>
         </StyledTypingArea>
