@@ -32,7 +32,7 @@ router.get("/texts", async (req, res) => {
 
     try {
 
-        const texts = await Text.find({language: "Python"}); 
+        const texts = await Text.find({}); 
 
         res.status(200).send(texts); 
 
