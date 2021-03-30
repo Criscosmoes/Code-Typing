@@ -22,12 +22,12 @@ const StyledTypingArea = styled.div`
     display: flex; 
     justify-content: center; 
     height: 800px; 
-    background: #E8E8E8
+    background: #E8E8E8; 
 
 }
 
 & > * {
-    margin: 0% 1%; 
+    margin: 0% 0%; 
 }
 
 
@@ -62,7 +62,7 @@ const StyledTypingArea = styled.div`
 }
 
 .link--container {
-    width: 100%
+    width: 100%; 
 }
 
 .icon {

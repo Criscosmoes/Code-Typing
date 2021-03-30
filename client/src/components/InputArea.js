@@ -21,7 +21,10 @@ const StyledInputArea = styled.div`
     justify-content: center; 
     align-items: center; 
     flex-direction: column;
-    width: 100%
+    width: 100%; 
+    background: white; 
+    border: 1px solid black;
+    margin: 1% 0%
 }
 
 
@@ -36,11 +39,12 @@ const StyledInputArea = styled.div`
 
 .text--area {
     height: 100px; 
-    font-size: 6rem; 
+    font-size: 7rem; 
     text-align: center; 
     width: 100%; 
     letter-spacing: .2rem;  
-    line-height: 100%; 
+    line-height: 100%;
+    font-family: 'Karla', sans-serif;
 }
 
 input {
@@ -49,6 +53,23 @@ input {
     font-size: 3rem; 
     outline: none; 
     border: 2px solid black; 
+}
+
+.restart--timer {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    width: 100%; 
+}
+
+button {
+    outline: none; 
+    width: 30%; 
+    padding: 1%; 
+    font-size: 3.5rem;
+    font-family: 'Karla', sans-serif;
+    transition: ease-in .4s; 
+    cursor: pointer; 
 }
 
 
@@ -123,7 +144,7 @@ const InputArea = () => {
         shuffleArray(arr); 
         setData(arr); 
 
-        const lastItem = arr[arr.length - 1]
+        const lastItem = arr[arr.length - 1]; 
 
         setText(lastItem); 
         setParagraph(lastItem.split("")); 
@@ -228,7 +249,7 @@ const InputArea = () => {
 
     const onRestartClick = () => {
 
-        const children = document.querySelector(".text-area").childNodes; 
+        const children = document.querySelector(".text--area").childNodes; 
 
         const arr = Array.from(children); 
 
@@ -288,41 +309,20 @@ const InputArea = () => {
 
 
     return (
-        <StyledInputArea>
-        {/*     <div className="typing-area">
-                    <div className="container">
-                            <div className="text-area">
-                                {spanText}
-                            </div>
-        
-                            <input type="text" onClick={onInputClick} onChange={onInputChange} value={userInput} disabled={disabled}/>
-
-                            
-                            <div className="restart-timer">
-                                <button onClick={onRestartClick}></button>
-                                <div className="timer">
-                                    <div className="seconds">
-                                        {seconds}
-                                    </div>
-                                </div>
-                            </div>
+        <StyledInputArea> 
+            <div className="big--container">
+                <div className="main--container">
+                    <div className="text--area">
+                        {spanText}
                     </div>
-                </div> */}
+                    <input type="text" spellcheck="false" onClick={onInputClick} onChange={onInputChange} value={userInput} disabled={disabled} />
 
-                
-                <div className="big--container">
-                    <div className="main--container">
-                        <div className="text--area">
-                            {spanText}
-                        </div>
-                        <input type="text" onClick={onInputClick} onChange={onInputChange} value={userInput} disabled={disabled} />
-
-                        <div className="restart--timer">
-                            <button onClick={onRestartClick}>Restart</button>
-        
-                        </div>
+                    <div className="restart--timer">
+                        <button onClick={onRestartClick}>Restart</button>
+    
                     </div>
                 </div>
+            </div>
         </StyledInputArea>
     )
 }
