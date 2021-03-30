@@ -8,8 +8,6 @@ export const fetchUser = () => async dispatch => {
     try {
         const response = await axios.get("/api/current_user"); 
 
-        console.log(response); 
-
         dispatch({type:"FETCH_USER", payload: response.data.username})
     }
     catch(e){
@@ -18,18 +16,29 @@ export const fetchUser = () => async dispatch => {
 
 }
 
+export const fetchLanguage = language => async dispatch => {
 
 
-export const loginUser = () => async dispatch => {
+    const response = await axios.get("/api/texts"); 
+
+    const filteredArr = response.data.filter(cur => cur.language === language)
+
+    dispatch({type: "FETCH_LANGUAGE", payload: filteredArr})
+}
 
 
-    try {
-        const response = await axios.get("https://code-typing.herokuapp.com/auth/google")
 
-        console.log(response); 
+export const logoutUser = () => async dispatch => {
+
+
+   try {
+       const response = await axios.get("/api/logout"); 
+
+       dispatch({type: "LOGOUT_USER", payload: ""}) 
+
     }
-    catch(e){
-        console.log(e.message); 
+   catch(e){
+       console.log(e.message); 
     }
 }
 

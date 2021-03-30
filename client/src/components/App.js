@@ -3,7 +3,7 @@ import React, {useEffect} from 'react'
 import { connect } from "react-redux"; 
 
 //function from our actions
-import { fetchUser, loginUser } from "../actions"; 
+import { fetchUser } from "../actions"; 
 
 import "../App.css"; 
 
@@ -12,7 +12,7 @@ import NavBar from './NavBar';
 import TypingArea from './TypingArea';
 
 
-const App = ({ fetchUser, loginUser }) => {
+const App = ({ fetchUser  }) => {
 
 
 
@@ -40,8 +40,5 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUser, loginUser })(App)
+export default connect(mapStateToProps, { fetchUser })(App)
 
-
-
-//<a href="/auth/google">Sign in with Google</a>

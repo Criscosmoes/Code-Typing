@@ -3,6 +3,10 @@ import styled from "styled-components";
 import axios from "axios"; 
 
 
+import { VscDebugRestart } from "react-icons/vsc"; 
+import { fetchLanguage } from '../actions';
+import { connect } from 'react-redux';
+
 const StyledInputArea = styled.div`
 
 @import url('https://fonts.googleapis.com/css2?family=Karla&display=swap'); 
@@ -63,6 +67,9 @@ input {
 }
 
 button {
+    display: flex; 
+    justify-content: center;  
+    align-items: center; 
     outline: none; 
     width: 30%; 
     padding: 1%; 
@@ -70,6 +77,10 @@ button {
     font-family: 'Karla', sans-serif;
     transition: ease-in .4s; 
     cursor: pointer; 
+}
+
+.res {
+    width: 32%; 
 }
 
 
@@ -106,7 +117,7 @@ button {
 
 `
 
-const InputArea = () => {
+const InputArea = ({ fetchLanguage, languagesArray }) => {
 
     const [userInput, setUserInput] = useState(""); 
     const [pointer, setPointer] = useState(0);
@@ -120,6 +131,36 @@ const InputArea = () => {
     const [disabled, setDisabled] = useState(false);
     const [intervalTimer, setIntervalTimer] = useState("false"); 
 
+
+    const changeLanguage = (language) => {
+
+        fetchLanguage(language)
+
+
+        const arr = languagesArray.map(cur => {
+            return cur.text; 
+        })
+
+
+        /* Randomize array in-place using Durstenfeld shuffle algorithm */
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+        shuffleArray(arr); 
+        setData(arr); 
+
+        const lastItem = arr[arr.length - 1]; 
+
+        setText(lastItem); 
+        setParagraph(lastItem.split("")); 
+
+    }
 
     useEffect(async () => {
 
@@ -148,7 +189,6 @@ const InputArea = () => {
 
         setText(lastItem); 
         setParagraph(lastItem.split("")); 
-        console.log(lastItem.split("")); 
 
 
 
@@ -179,7 +219,7 @@ const InputArea = () => {
     
 
         
-        if (lastChar == paragraph[pointer]){
+        if (lastChar === paragraph[pointer]){
 
 
             setPointer(pointer + 1); 
@@ -187,7 +227,7 @@ const InputArea = () => {
             currentSpan.removeAttribute("id", "next"); 
 
             // checks if current word is incorrect
-            if (currentSpan.classList.value == "wrong right" || currentSpan.classList.value == "right wrong" || currentSpan.classList.value == "wrong"){
+            if (currentSpan.classList.value === "wrong right" || currentSpan.classList.value === "right wrong" || currentSpan.classList.value === "wrong"){
                 currentSpan.classList.remove("right");
 
             }
@@ -222,8 +262,6 @@ const InputArea = () => {
         if(userInput.length === text.length - 1){
 
             const children = e.target.previousSibling.childNodes; 
-
-            console.log(children); 
 
             const arr = Array.from(children); 
 
@@ -283,7 +321,6 @@ const InputArea = () => {
             setSeconds(sec); 
             sec--;
             
-            console.log(intervalTimer); 
 
             // when timer ends
             if (sec < 0) {
@@ -297,7 +334,6 @@ const InputArea = () => {
     const onInputClick = () => {
 
 
-        console.log("clicked") 
          
         setIntervalTimer("true");
         if(seconds >= 59){
@@ -315,11 +351,10 @@ const InputArea = () => {
                     <div className="text--area">
                         {spanText}
                     </div>
-                    <input type="text" spellcheck="false" onClick={onInputClick} onChange={onInputChange} value={userInput} disabled={disabled} />
+                    <input type="text" spellCheck="false" onClick={onInputClick} onChange={onInputChange} value={userInput} disabled={disabled} />
 
                     <div className="restart--timer">
-                        <button onClick={onRestartClick}>Restart</button>
-    
+                        <button onClick={onRestartClick}><VscDebugRestart className="icon" /><h2 className="res">Restart</h2></button>
                     </div>
                 </div>
             </div>
@@ -327,4 +362,11 @@ const InputArea = () => {
     )
 }
 
-export default InputArea
+const mapStateToProps = state => {
+
+    return {
+        languagesArray: state.currentLanguage,
+    }
+}
+
+export default connect(mapStateToProps, { fetchLanguage })(InputArea)

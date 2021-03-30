@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { FcGoogle } from "react-icons/fc";
+import { connect } from "react-redux";
 
 const StyledNavBar = styled.div`
 
@@ -36,7 +37,8 @@ const StyledNavBar = styled.div`
     border: 2px solid black;
     color: black; 
     font-family: 'Karla', sans-serif;
-    font-weight: 600; 
+    font-weight: 600;
+    transition: ease-out .5s; 
   }
 
   .google--icon {
@@ -47,19 +49,63 @@ const StyledNavBar = styled.div`
   h2 {
     font-size: 2.2rem;
   }
+
+  .name {
+    margin-right: 4%; 
+    font-size: 5.5rem;
+    font-family: 'Karla', sans-serif;
+    transition: ease-in .5s; 
+  }
 `;
 
-const NavBar = () => {
+const NavBar = ({username}) => {
+
+  const onButtonClick = () => {
+
+    window.location = "/auth/google"; 
+  }
+
+
+  const trackUser = (user) => {
+
+    if(user){
+      return <h1 className="name">{`Welcome, ${user}`}</h1>
+    }
+    else {
+
+      return (
+        <div className="login--button" onClick={onButtonClick}>
+          <FcGoogle className="google--icon" />
+          <h2>Sign in with Google</h2>
+        </div>
+      )
+
+    }
+  }
+
+
+/*   useEffect(() => {
+
+    trackUser(username); 
+  }, []) */
+
+
+
+
   return (
     <StyledNavBar>
       <div className="logo"></div>
-      <div className="login--button">
-        <FcGoogle className="google--icon" />
-        <h2>Sign in with Google</h2>
-      </div>
+      {trackUser(username)}
       
     </StyledNavBar>
   );
 };
 
-export default NavBar;
+const mapStatetoProps = state => {
+
+  return {
+    username: state.currentUser.username, 
+  }
+}
+
+export default connect(mapStatetoProps)(NavBar);

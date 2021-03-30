@@ -60,7 +60,7 @@ router.get(
   }
 ); // this now uses the google strategy call back URL up above
 
-router.get("/logout", (req, res) => {
+router.get("/api/logout", (req, res) => {
   req.logout();
   res.send(req.user);
 });
