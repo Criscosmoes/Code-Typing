@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom"; 
 
 //function from our actions
-import { fetchUser } from "../actions"; 
+import { fetchUser, fetchScores } from "../actions"; 
 
 import "../App.css"; 
 
@@ -17,7 +17,7 @@ import SideLinks from './SideLinks';
 
 
 
-const App = ({ fetchUser  }) => {
+const App = ({ fetchUser, fetchScores }) => {
 
 
 
@@ -25,7 +25,8 @@ const App = ({ fetchUser  }) => {
 
         
 
-        fetchUser(); 
+        fetchUser();
+        fetchScores(); 
 
     }, [fetchUser])
 
@@ -55,5 +56,5 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUser })(App)
+export default connect(mapStateToProps, { fetchUser, fetchScores })(App)
 

@@ -8,9 +8,13 @@ const scoresSchema = new mongoose.Schema({
         min: 0,
         max: 400
     }, 
-    owner: {
+    id: {
         type: String, 
         required: true, 
+    }, 
+    name: {
+        type: String, 
+        required: true
     }, 
     date: {
         type: Date, 

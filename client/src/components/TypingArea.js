@@ -23,7 +23,6 @@ import { SiPython } from "react-icons/si";
 
 
 import { connect } from 'react-redux';
-
 import { logoutUser, sendScore } from "../actions"; 
 
 
@@ -277,26 +276,20 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
 
 
     const onTimeExpire = () => {
-
-        setDisabled(true); 
+ 
 
         // calculate wpm and send to db
 
         const wpm = Math.floor(correctWordsRef.current / wrongWordsRef.current)
 
+        console.log(wpm); 
+
+        // if we have a user currently logged in, save their score to db
         if(username && wpm > 0 && id){
 
-            sendScore(wpm, id); 
+            sendScore(wpm, id, username); 
 
         }
-
-
-        // we have a user currently signed in, save their score
-        /* if (username){
-            sendScore(keys); 
-        } */
-
-
 
 
         // calculate wpm and then send stats to show on UI
@@ -304,6 +297,7 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
 
 
         // disable the input until restart button is pressed again
+        setDisabled(true);
 
     }
 

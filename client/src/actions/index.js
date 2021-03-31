@@ -21,7 +21,6 @@ export const fetchUser = () => async dispatch => {
 
 export const fetchLanguage = language => async dispatch => {
 
-
     const response = await axios.get("/api/texts"); 
 
     const filteredArr = response.data.filter(cur => cur.language === language)
@@ -32,7 +31,6 @@ export const fetchLanguage = language => async dispatch => {
 
 
 export const logoutUser = () => async dispatch => {
-
 
    try {
        const response = await axios.get("/api/logout"); 
@@ -45,12 +43,12 @@ export const logoutUser = () => async dispatch => {
     }
 }
 
-export const sendScore = (wordsPerMinute, userId) => async dispatch => {
+export const sendScore = (wordsPerMinute, userId, username) => async dispatch => {
 
 
     try {
 
-        const response = await axios.post("/api/scores", {score: wordsPerMinute, owner: userId}); 
+        const response = await axios.post("/api/scores", {score: wordsPerMinute, owner: userId, name: username}); 
 
         console.log(response); 
 
@@ -59,24 +57,22 @@ export const sendScore = (wordsPerMinute, userId) => async dispatch => {
         console.log(e.message); 
     }
     
-
-
 }
 
 
-export const CorrectWords = () => {
+export const fetchScores = () => async dispatch => {
 
-    return {
-        type: "CORRECT_WORD",
+    try {
+        const response = await axios.get("/api/leaders"); 
+
+        console.log(response.data);
+
+        const leaders = response.data.sort(function(a,b){return b.wordsPerMinute - a.wordsPerMinute})
+
+        dispatch({type: "FETCH_SCORES", payload: leaders})
     }
-
-
-}
-
-export const incorrectWords = () => {
-
-    return {
-        type: "WRONG_WORD",
+    catch(e){
+        console.log(e.message); 
     }
 
 

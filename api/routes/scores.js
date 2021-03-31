@@ -20,7 +20,8 @@ router.post("/scores", async (req, res) => {
 
         const newScore = new Score({
             wordsPerMinute: score,
-            owner: req.user.googleId
+            id: req.user.googleId, 
+            name: req.user.username
         })
 
         await newScore.save(); 

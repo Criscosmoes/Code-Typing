@@ -6,8 +6,7 @@ const initialState = {
 
     currentLanguage: [],
 
-    incorrectWords: 0, 
-    correctWords: 0, 
+    leaderboards: [], 
 
 }
 
@@ -36,16 +35,10 @@ export default (state = initialState, action) => {
                 ...state, 
                 currentLanguage: action.payload
             }
-        case "CORRECT_WORD": 
-            return {
-                ...state,
-                correctWords: state.correctWords + 1
-
-            }
-        case "WRONG_WORD": 
+        case "FETCH_SCORES": 
             return {
                 ...state, 
-                wrongWords: state.wrongWords + 1, 
+                leaderboards: action.payload, 
             }
         default: 
             return state; 
