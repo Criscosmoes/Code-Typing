@@ -42,6 +42,24 @@ export const logoutUser = () => async dispatch => {
     }
 }
 
+export const sendScore = wordsPerMinute => async dispatch => {
+
+
+    try {
+
+        const response = await axios.post("/api/scores", {score: wordsPerMinute}); 
+
+        console.log(response); 
+
+    }
+    catch(e){
+        console.log(e.message); 
+    }
+    
+
+
+}
+
 
 
 

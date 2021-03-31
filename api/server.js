@@ -21,6 +21,7 @@ const server = express();
 const UserRouter = require("./routes/user");
 const PassportRouter = require("./routes/passport"); 
 const TextsRouter = require("./routes/texts"); 
+const ScoresRouter = require("./routes/scores"); 
 
 
 //middleware
@@ -37,8 +38,10 @@ server.use(cors());
 server.use(helmet());
 server.use(express.json());
 
+server.use("/api", ScoresRouter); 
 server.use("/api", TextsRouter); 
 server.use("/api", UserRouter);
+
 server.use(PassportRouter);
 
 

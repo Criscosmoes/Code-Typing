@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 
 import { connect } from "react-redux"; 
 
+import { Switch, Route } from "react-router-dom"; 
+
 //function from our actions
 import { fetchUser } from "../actions"; 
 
@@ -10,6 +12,9 @@ import "../App.css";
 // components
 import NavBar from './NavBar';
 import TypingArea from './TypingArea';
+import MyTimer from './MyTimer';
+import SideLinks from './SideLinks';
+
 
 
 const App = ({ fetchUser  }) => {
@@ -28,8 +33,17 @@ const App = ({ fetchUser  }) => {
 
     return (
         <div>
-           <NavBar />
-           <TypingArea />
+           <Switch>
+               <Route path="/" exact>
+                   <NavBar />
+                   <TypingArea />
+               </Route>
+               <Route path="/leaderboard">
+                   <NavBar />
+                   <SideLinks />
+                   
+               </Route>
+           </Switch>
         </div>
     )
 }

@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components"; 
+import Countdown from 'react-countdown';
+
 
 import { Link } from "react-router-dom"; 
 
@@ -20,13 +22,14 @@ import { SiPython } from "react-icons/si";
 
 import { connect } from 'react-redux';
 
-import { logoutUser } from "../actions"; 
+import { logoutUser, sendScore } from "../actions"; 
 
 
 
 // Input Area code 
 
 import axios from "axios"; 
+import { useTimer } from 'react-timer-hook';
 
 
 import { VscDebugRestart } from "react-icons/vsc"; 
@@ -223,14 +226,42 @@ h3 {
 
 .languages h2 {
     width: 30%; 
-}  
+} 
+
+.times {
+
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+    font-size: 4rem;
+    margin: 0% 1%;
+    width: 8%; 
+    border: 2px solid black; 
+}
+
+
 
 `
 
-const TypingArea = ({username, logoutUser}) => {
+const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore }) => {
 
 
     // input area code 
+
+    const {
+        seconds,
+        minutes,
+        hours,
+        days,
+        isRunning,
+        start,
+        pause,
+        resume,
+        restart,
+    } = useTimer({ expiryTimestamp, onExpire: () => {
+        onTimeExpire(); 
+    } });
 
 
     const [userInput, setUserInput] = useState(""); 
@@ -240,11 +271,34 @@ const TypingArea = ({username, logoutUser}) => {
     const [paragraph, setParagraph] = useState(text.split(""));
     const [wrongWords, setWrongWords] = useState(0); 
     const [correctWords, setCorrectWords] = useState(0); 
-    const [wpm, setWpm] = useState(0); 
-    const [seconds, setSeconds] = useState(60); 
     const [disabled, setDisabled] = useState(false);
-    const [intervalTimer, setIntervalTimer] = useState("false"); 
 
+
+    const onTimeExpire = () => {
+
+        setDisabled(true); 
+
+        // calculate wpm and send to db
+
+        console.log("h1")
+        console.log(correctWords); 
+
+
+        // we have a user currently signed in, save their score
+        /* if (username){
+            sendScore(keys); 
+        } */
+
+
+
+
+        // calculate wpm and then send stats to show on UI
+
+
+
+        // disable the input until restart button is pressed again
+
+    }
 
     const changeLanguage = async (language) => {
 
@@ -277,6 +331,8 @@ const TypingArea = ({username, logoutUser}) => {
         setParagraph(lastItem.split("")); 
 
     }
+
+
 
     /* Randomize array in-place using Durstenfeld shuffle algorithm */
     function shuffleArray(array) {
@@ -382,6 +438,8 @@ const TypingArea = ({username, logoutUser}) => {
 
     const onRestartClick = () => {
 
+        restart(60);
+
         const children = document.querySelector(".text--area").childNodes; 
 
         const arr = Array.from(children); 
@@ -394,51 +452,28 @@ const TypingArea = ({username, logoutUser}) => {
 
         const randomNum = Math.floor((Math.random() * data.length - 1) + 1); 
         const newText = data[randomNum]; 
-
-        setIntervalTimer("false"); 
+ 
         setCorrectWords(0); 
-        setWrongWords(0); 
-        setWpm(0); 
+        setWrongWords(0);
         setDisabled(false); 
-        setSeconds(60); 
         setText(newText); 
         setParagraph(newText.split(""))
         setPointer(0);
         setUserInput("");
-    }
-
-
-    function timer(){
-        var sec = 59;
-        var myTimer = setInterval(function(){
-
-            
-            setSeconds(sec); 
-            sec--;
-            
-
-            // when timer ends
-            if (sec < 0) {
-                setDisabled(true); 
-                clearInterval(myTimer);
-            }
-
-        }, 1000);
 
     }
+
+
     const onInputClick = () => {
+    
+        const time = new Date();
+        time.setSeconds(time.getSeconds() + 10);
+        restart(time)
 
-
-         
-        setIntervalTimer("true");
-        if(seconds >= 59){
-            timer();
-            
-        }
-        
     }
 
     useEffect(async () => {
+
 
         const response = await axios.get("http://localhost:5000/api/texts"); 
 
@@ -460,11 +495,6 @@ const TypingArea = ({username, logoutUser}) => {
 
     }, [])
     
-
-
-    // 
-
-
 
     const onLogInClick = () => {
 
@@ -509,7 +539,7 @@ const TypingArea = ({username, logoutUser}) => {
                         <input type="text" spellCheck="false" onClick={onInputClick} onChange={onInputChange} value={userInput} disabled={disabled} />
 
                         <div className="restart--timer">
-                            <button onClick={onRestartClick}><VscDebugRestart className="icon" /><h2 className="res">Restart</h2></button>
+                            <button onClick={onRestartClick}><VscDebugRestart className="icon" /><h2 className="res">Restart</h2></button><span className="times"><div className="time">{seconds === 0 ? 60 : seconds}</div></span>
                         </div>
                     </div>
                 </div>
@@ -534,4 +564,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { logoutUser })(TypingArea); 
+export default connect(mapStateToProps, { logoutUser, sendScore })(TypingArea); 
