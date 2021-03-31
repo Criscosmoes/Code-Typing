@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect } from 'react'
 import styled from "styled-components"; 
 import Countdown from 'react-countdown';
+
+import useState from 'react-usestateref'
 
 
 import { Link } from "react-router-dom"; 
@@ -244,7 +246,7 @@ h3 {
 
 `
 
-const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore }) => {
+const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) => {
 
 
     // input area code 
@@ -269,8 +271,8 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore }) => {
     const [data, setData] = useState([]); 
     const [text, setText] = useState("")
     const [paragraph, setParagraph] = useState(text.split(""));
-    const [wrongWords, setWrongWords] = useState(0); 
-    const [correctWords, setCorrectWords] = useState(0); 
+    const [wrongWords, setWrongWords, wrongWordsRef] = useState(0); 
+    const [correctWords, setCorrectWords, correctWordsRef] = useState(0) 
     const [disabled, setDisabled] = useState(false);
 
 
@@ -280,8 +282,13 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore }) => {
 
         // calculate wpm and send to db
 
-        console.log("h1")
-        console.log(correctWords); 
+        const wpm = Math.floor(correctWordsRef.current / wrongWordsRef.current)
+
+        if(username && wpm > 0 && id){
+
+            sendScore(wpm, id); 
+
+        }
 
 
         // we have a user currently signed in, save their score
@@ -299,6 +306,8 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore }) => {
         // disable the input until restart button is pressed again
 
     }
+
+
 
     const changeLanguage = async (language) => {
 
@@ -519,6 +528,7 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore }) => {
     }
 
 
+
     return (
         <StyledTypingArea>
             <div className="navigation">
@@ -561,6 +571,7 @@ const mapStateToProps = state => {
 
     return {
         username: state.currentUser.username, 
+        id: state.currentUser.id
     }
 }
 

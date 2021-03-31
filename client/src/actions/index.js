@@ -8,7 +8,10 @@ export const fetchUser = () => async dispatch => {
     try {
         const response = await axios.get("/api/current_user"); 
 
-        dispatch({type:"FETCH_USER", payload: response.data.username})
+        dispatch({type:"FETCH_USER", payload: {
+            username: response.data.username, 
+            id: response.data.googleId
+        }})
     }
     catch(e){
         console.log(e.message); 
@@ -42,12 +45,12 @@ export const logoutUser = () => async dispatch => {
     }
 }
 
-export const sendScore = wordsPerMinute => async dispatch => {
+export const sendScore = (wordsPerMinute, userId) => async dispatch => {
 
 
     try {
 
-        const response = await axios.post("/api/scores", {score: wordsPerMinute}); 
+        const response = await axios.post("/api/scores", {score: wordsPerMinute, owner: userId}); 
 
         console.log(response); 
 
@@ -56,6 +59,25 @@ export const sendScore = wordsPerMinute => async dispatch => {
         console.log(e.message); 
     }
     
+
+
+}
+
+
+export const CorrectWords = () => {
+
+    return {
+        type: "CORRECT_WORD",
+    }
+
+
+}
+
+export const incorrectWords = () => {
+
+    return {
+        type: "WRONG_WORD",
+    }
 
 
 }

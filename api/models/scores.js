@@ -8,10 +8,10 @@ const scoresSchema = new mongoose.Schema({
         min: 0,
         max: 400
     }, 
-    /* owner: {
-        type: mongoose.Schema.Types.ObjectId, 
+    owner: {
+        type: String, 
         required: true, 
-    },  */
+    }, 
     date: {
         type: Date, 
         default: Date.now, 

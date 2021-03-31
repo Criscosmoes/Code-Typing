@@ -1,10 +1,13 @@
 const initialState = {
     currentUser: {
+        id: "", 
         username: ""
     }, 
 
-    currentLanguage: [], 
+    currentLanguage: [],
 
+    incorrectWords: 0, 
+    correctWords: 0, 
 
 }
 
@@ -17,7 +20,8 @@ export default (state = initialState, action) => {
             return {
                 ...state, 
                 currentUser: {
-                    username: action.payload, 
+                    id: action.payload.id, 
+                    username: action.payload.username, 
                 }
             }
         case "LOGOUT_USER": 
@@ -31,6 +35,17 @@ export default (state = initialState, action) => {
             return {
                 ...state, 
                 currentLanguage: action.payload
+            }
+        case "CORRECT_WORD": 
+            return {
+                ...state,
+                correctWords: state.correctWords + 1
+
+            }
+        case "WRONG_WORD": 
+            return {
+                ...state, 
+                wrongWords: state.wrongWords + 1, 
             }
         default: 
             return state; 
