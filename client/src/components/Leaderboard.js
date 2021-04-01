@@ -108,146 +108,44 @@ h2 {
 
 .typing--area {
     display: flex; 
-    justify-content: center; 
-}
-
-.big--container { 
-    display: flex; 
-    justify-content: center; 
+    justify-content: space-around;
     align-items: center; 
-    flex-direction: column;
-    width: 100%; 
-    background: #E0E0E0;
-    background: #202020; 
+    flex-direction: column; 
     color: white; 
-    border-radius: 10px;
-}
-
-
-.main--container {
-    height: 100%; 
-    width: 100%;
-    display: flex; 
-    justify-content: space-evenly; 
-    align-items: center; 
-    flex-direction: column;
-}
-
-.text--area {
-  
-    height: 90px; 
-    font-size: 7rem; 
-    text-align: center; 
-    width: 80%; 
-    letter-spacing: .2rem;  
-    line-height: 100%;
     font-family: 'Karla', sans-serif;
 }
 
+h1 {
+    font-size: 7rem;
+    margin: 1%
+}
 
-input {
-    width: 50%;
-    height: 60px;
+
+.table {
+    overflow-y: auto; 
+    width: 100%
+}
+
+.leaders {
+    display: flex; 
+    justify-content: space-around;
+    align-items: center; 
+    margin: 1%
+}
+
+.place {
+    width: 30px;
     font-size: 3rem; 
-    outline: none; 
-    border: 2px solid gray;
-    font-family: 'Karla', sans-serif;
 }
 
-.restart--timer {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    width: 100%; 
+.name {
+    width: 300px; 
+    font-size: 6rem; 
 }
 
-button {
-    display: flex; 
-    justify-content: center;  
-    align-items: center; 
-    outline: none; 
-    width: 25%; 
-    padding: 1%; 
-    font-family: 'Karla', sans-serif;
-    transition: ease-in .4s; 
-    cursor: pointer;
-    background: #228B22; 
-    color: white;
-    border: 2px solid #228B22; 
-}
-
-
-
-.res {
-    width: 32%; 
-}
-
-//text box 
-.wrong {
-    color: red; 
-}
-
-.right {
-   color: #228B22; 
-}
-
-#next {
-    background: #A8A8A8; 
-    animation: blink 2s linear infinite; 
-}
-
-#cursor {
-  line-height: 17px;
-  margin-left: 3px;
-  -webkit-animation: blink 1.5s infinite;
-  width: 7px;
-  height: 15px;
-}
-
-@-webkit-keyframes blink {
-  0% {background: red}
-  50% {background: lime}
-  100% {background: red}
-}
-
-
-// last div area 
-
-
-h3 {
-    height: 50px; 
-    font-size: 4rem; 
-    text-align: center; 
-}
-
-.languages {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    width: 100%;
-    height: 120px; 
-}
-
-.languages:hover {
-    background: gray; 
-}
-
-.languages h2 {
-    width: 30%; 
-} 
-
-.times {
-
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    height: 100%; 
-    font-size: 4rem;
-    margin: 0% 1%;
-    width: 8%;
-    background: #228B22; 
-    border: 2px solid #228B22; 
-    font-family: 'Karla', sans-serif;
+.score {
+    width: 150px;
+    font-size: 3rem; 
 }
 
 
@@ -278,6 +176,16 @@ const Leaderboard = ({leaders, username}) => {
         
     }
 
+    const renderedLeaders = leaders.map((cur, index) => {
+
+        return (
+            <div className="leaders">
+                <div className="place">{index + 1}. </div>
+                <h2 className="name">{cur.name}</h2>
+                <div className="score">WPM: {cur.wordsPerMinute}</div>
+            </div>
+        )
+    })
 
     return (
         <StyledLeaderboard>
@@ -290,7 +198,10 @@ const Leaderboard = ({leaders, username}) => {
                 </div>
             </div>
             <div className="typing--area">
-                
+                <h1>Leaderboard</h1>
+                <div className="table">
+                    {renderedLeaders}
+                </div>
             </div>
         </StyledLeaderboard>
     )
