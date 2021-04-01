@@ -48,7 +48,7 @@ const StyledTypingArea = styled.div`
     display: flex; 
     justify-content: center; 
     height: 800px; 
-    background: #E8E8E8; 
+    background: #202020;
 
 }
 
@@ -65,6 +65,7 @@ const StyledTypingArea = styled.div`
     align-items: center; 
     width: 20%; 
     font-family: 'Karla', sans-serif;
+    border-right: 2px solid gray; 
 }
 
 .typing--area {
@@ -81,10 +82,13 @@ const StyledTypingArea = styled.div`
     align-items: center; 
     width: 100%;
     height: 120px; 
+    color: white;
+    transition: ease-out .3s; 
 }
 
 .link:hover {
-    background: gray; 
+    background: gray;  
+    transition: ease-in .3s; 
 }
 
 .link--container {
@@ -108,8 +112,6 @@ h2 {
 .typing--area {
     display: flex; 
     justify-content: center; 
-    background: #E8E8E8; 
-    height: 100%;
 }
 
 .big--container { 
@@ -118,9 +120,10 @@ h2 {
     align-items: center; 
     flex-direction: column;
     width: 100%; 
-    background: white; 
-    border: 1px solid black;
-    margin: 1% 0%
+    background: #E0E0E0;
+    background: #202020; 
+    color: white; 
+    border-radius: 10px;
 }
 
 
@@ -130,25 +133,27 @@ h2 {
     display: flex; 
     justify-content: space-evenly; 
     align-items: center; 
-    flex-direction: column; 
+    flex-direction: column;
 }
 
 .text--area {
-    height: 100px; 
+  
+    height: 90px; 
     font-size: 7rem; 
     text-align: center; 
-    width: 100%; 
+    width: 80%; 
     letter-spacing: .2rem;  
     line-height: 100%;
     font-family: 'Karla', sans-serif;
 }
+
 
 input {
     width: 50%;
     height: 60px;
     font-size: 3rem; 
     outline: none; 
-    border: 2px solid black;
+    border: 2px solid gray;
     font-family: 'Karla', sans-serif;
 }
 
@@ -164,16 +169,20 @@ button {
     justify-content: center;  
     align-items: center; 
     outline: none; 
-    width: 30%; 
+    width: 25%; 
     padding: 1%; 
-    font-size: 3.5rem;
     font-family: 'Karla', sans-serif;
     transition: ease-in .4s; 
-    cursor: pointer; 
+    cursor: pointer;
+    background: #228B22; 
+    color: white;
+    border: 2px solid #228B22; 
 }
 
+
+
 .res {
-    width: 20%; 
+    width: 32%; 
 }
 
 //text box 
@@ -186,12 +195,11 @@ button {
 }
 
 #next {
-    background: lightgray; 
+    background: #A8A8A8; 
     animation: blink 2s linear infinite; 
 }
 
 #cursor {
-  background: gray;
   line-height: 17px;
   margin-left: 3px;
   -webkit-animation: blink 1.5s infinite;
@@ -200,9 +208,9 @@ button {
 }
 
 @-webkit-keyframes blink {
-  0% {background: #222}
+  0% {background: red}
   50% {background: lime}
-  100% {background: #222}
+  100% {background: red}
 }
 
 
@@ -239,8 +247,10 @@ h3 {
     height: 100%; 
     font-size: 4rem;
     margin: 0% 1%;
-    width: 8%; 
-    border: 2px solid black; 
+    width: 8%;
+    background: #228B22; 
+    border: 2px solid #228B22; 
+    font-family: 'Karla', sans-serif;
 }
 
 
@@ -472,7 +482,7 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
     const onInputClick = () => {
     
         const time = new Date();
-        time.setSeconds(time.getSeconds() + 10);
+        time.setSeconds(time.getSeconds() + 60);
         restart(time)
 
     }
@@ -544,7 +554,7 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
                         <input type="text" spellCheck="false" placeholder="Start Typing!" onClick={onInputClick} onChange={onInputChange} value={userInput} disabled={disabled} />
 
                         <div className="restart--timer">
-                            <button onClick={onRestartClick}><VscDebugRestart className="icon" /><h2 className="res">Restart</h2></button><span className="times"><div className="time">{seconds === 0 ? 60 : seconds}</div></span>
+                            <button onClick={onRestartClick}><h2 className="res">Restart</h2></button><span className="times"><div className="time">{seconds === 0 ? 60 : seconds}</div></span>
                         </div>
                     </div>
                 </div>

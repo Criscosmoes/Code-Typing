@@ -14,7 +14,7 @@ import NavBar from './NavBar';
 import TypingArea from './TypingArea';
 import MyTimer from './MyTimer';
 import SideLinks from './SideLinks';
-
+import Footer from './Footer';
 
 
 const App = ({ fetchUser, fetchScores }) => {
@@ -38,6 +38,7 @@ const App = ({ fetchUser, fetchScores }) => {
                <Route path="/" exact>
                    <NavBar />
                    <TypingArea />
+                   <Footer />
                </Route>
                <Route path="/leaderboard">
                    <NavBar />

@@ -5,11 +5,11 @@ import { FcGoogle } from "react-icons/fc";
 import { connect } from "react-redux";
 
 import { AiOutlineCodepen } from "react-icons/ai";
-import { GrCodeSandbox } from "react-icons/gr";  
+import { SiCodesandbox } from "react-icons/si";  
 
 const StyledNavBar = styled.div`
 
-    @import url('https://fonts.googleapis.com/css2?family=Karla&display=swap'); 
+    @import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
 
 
   & {
@@ -17,8 +17,10 @@ const StyledNavBar = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 110px;
-    border-bottom: 2px solid black;
-    background: #E8E8E8
+    border-bottom: 2px solid gray;
+    background: #F9F9FC;
+    background: #202020; 
+    color: white; 
   }
 
   .logo {
@@ -28,6 +30,7 @@ const StyledNavBar = styled.div`
     margin-left: 4%;
     font-size: 4rem;
     font-family: 'Karla', sans-serif;
+    font-weight: 700; 
     width: 15%
   }
 
@@ -50,11 +53,20 @@ const StyledNavBar = styled.div`
     padding: 0.4%;
     margin-right: 4%;
     cursor: pointer;
-    border: 2px solid black;
+    border: 2px solid white; 
+    background: white; 
     color: black; 
     font-family: 'Karla', sans-serif;
     font-weight: 600;
-    transition: ease-out .5s; 
+    transition: ease-out .3s; 
+  }
+
+  .login--button:hover {
+
+    background: 	#A9A9A9;   
+    transition: ease-in .3s;
+    border: 2px solid 	#A9A9A9; 
+
   }
 
   .google--icon {
@@ -102,7 +114,7 @@ const NavBar = ({username}) => {
 
   return (
     <StyledNavBar>
-      <div className="logo"><GrCodeSandbox className="icon" /><h4>Code Typing</h4></div>
+      <div className="logo"><SiCodesandbox className="icon" /><h4>Code Typing</h4></div>
       {trackUser(username)}
       
     </StyledNavBar>
