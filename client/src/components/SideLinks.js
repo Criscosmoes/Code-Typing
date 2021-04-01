@@ -9,6 +9,7 @@ import { BiUser } from "react-icons/bi";
 import { AiOutlineTable } from "react-icons/ai"; 
 import { RiArrowLeftCircleLine} from "react-icons/ri"
 import { FcGoogle } from "react-icons/fc";
+import { FiSettings } from "react-icons/fi"; 
 
 
 import { Link } from "react-router-dom"; 
@@ -27,10 +28,8 @@ const StyledSideLinks = styled.div`
     align-items: center; 
     font-family: 'Karla', sans-serif;
     height: 800px; 
-}
-
-.typing--area {
-    width: 60%; 
+    background: #202020;
+    color: white;
 }
 
 .results {
@@ -43,6 +42,7 @@ const StyledSideLinks = styled.div`
     align-items: center; 
     width: 100%;
     height: 120px; 
+    color: white; 
 }
 
 .link:hover {
@@ -50,7 +50,7 @@ const StyledSideLinks = styled.div`
 }
 
 .link--container {
-    width: 25%; 
+    width: 27.1%;
 }
 
 .icon {
@@ -103,10 +103,9 @@ const SideLinks = ({ logoutUser, username}) => {
     return (
         <StyledSideLinks className="navigation">
             <div className="link--container">
-                <h3></h3>
                 <Link to="/" className="link"><BiHomeAlt className="icon"/><h2>Home</h2></Link>
-                <Link to="/myaccount" className="link"><BiUser className="icon"/><h2>My Account</h2></Link>
                 <Link to="/leaderboard" className="link"><AiOutlineTable className="icon"/><h2>Leaderboard</h2></Link>
+                <Link to="/settings" className="link"><FiSettings className="icon" /><h2>Settings</h2></Link>
                 {isUserloggedIn(username)}
             </div>
             <Leaderboard />

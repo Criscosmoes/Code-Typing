@@ -15,6 +15,7 @@ import TypingArea from './TypingArea';
 import MyTimer from './MyTimer';
 import SideLinks from './SideLinks';
 import Footer from './Footer';
+import Leaderboard from './Leaderboard';
 
 
 const App = ({ fetchUser, fetchScores }) => {
@@ -42,7 +43,8 @@ const App = ({ fetchUser, fetchScores }) => {
                </Route>
                <Route path="/leaderboard">
                    <NavBar />
-                   <SideLinks />
+                   <Leaderboard />
+                   <Footer />
                    
                </Route>
            </Switch>

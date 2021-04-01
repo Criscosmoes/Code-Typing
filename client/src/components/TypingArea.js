@@ -52,10 +52,6 @@ const StyledTypingArea = styled.div`
 
 }
 
-& > * {
-    margin: 0% 0%; 
-}
-
 
 // first div area 
 
@@ -63,7 +59,7 @@ const StyledTypingArea = styled.div`
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    width: 20%; 
+    width: 22%; 
     font-family: 'Karla', sans-serif;
     border-right: 2px solid gray; 
 }
