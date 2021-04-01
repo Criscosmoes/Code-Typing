@@ -4,6 +4,9 @@ import styled from "styled-components";
 import { FcGoogle } from "react-icons/fc";
 import { connect } from "react-redux";
 
+import { AiOutlineCodepen } from "react-icons/ai";
+import { GrCodeSandbox } from "react-icons/gr";  
+
 const StyledNavBar = styled.div`
 
     @import url('https://fonts.googleapis.com/css2?family=Karla&display=swap'); 
@@ -19,9 +22,22 @@ const StyledNavBar = styled.div`
   }
 
   .logo {
+    display: flex; 
+    justify-content: space-evenly; 
+    align-items: center; 
     margin-left: 4%;
-    font-size: 2rem;
-    color: white;
+    font-size: 4rem;
+    font-family: 'Karla', sans-serif;
+    width: 15%
+  }
+
+  h4 {
+    font-size: 3.5rem; 
+  }
+  
+  .icon {
+    border: none;
+    margin: 0% 1%;
   }
 
   // login button
@@ -84,17 +100,9 @@ const NavBar = ({username}) => {
   }
 
 
-/*   useEffect(() => {
-
-    trackUser(username); 
-  }, []) */
-
-
-
-
   return (
     <StyledNavBar>
-      <div className="logo"></div>
+      <div className="logo"><GrCodeSandbox className="icon" /><h4>Code Typing</h4></div>
       {trackUser(username)}
       
     </StyledNavBar>

@@ -13,6 +13,7 @@ import { BiUser } from "react-icons/bi";
 import { AiOutlineTable } from "react-icons/ai"; 
 import { RiArrowLeftCircleLine} from "react-icons/ri"
 import { FcGoogle } from "react-icons/fc";
+import { FiSettings } from "react-icons/fi"; 
 
 // languages 
 import { AiOutlineHtml5 } from "react-icons/ai";
@@ -67,7 +68,7 @@ const StyledTypingArea = styled.div`
 }
 
 .typing--area {
-    width: 60%; 
+    width: 79%; 
 }
 
 .results {
@@ -147,7 +148,8 @@ input {
     height: 60px;
     font-size: 3rem; 
     outline: none; 
-    border: 2px solid black; 
+    border: 2px solid black;
+    font-family: 'Karla', sans-serif;
 }
 
 .restart--timer {
@@ -171,7 +173,7 @@ button {
 }
 
 .res {
-    width: 32%; 
+    width: 20%; 
 }
 
 //text box 
@@ -527,10 +529,9 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
         <StyledTypingArea>
             <div className="navigation">
                 <div className="link--container">
-                    <h3></h3>
                     <Link to="/" className="link"><BiHomeAlt className="icon"/><h2>Home</h2></Link>
-                    <Link to="/myaccount" className="link"><BiUser className="icon"/><h2>My Account</h2></Link>
                     <Link to="/leaderboard" className="link"><AiOutlineTable className="icon"/><h2>Leaderboard</h2></Link>
+                    <Link to="/settings" className="link"><FiSettings className="icon" /><h2>Settings</h2></Link>
                     {isUserloggedIn(username)}
                 </div>
             </div>
@@ -540,7 +541,7 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
                         <div className="text--area">
                             {spanText}
                         </div>
-                        <input type="text" spellCheck="false" onClick={onInputClick} onChange={onInputChange} value={userInput} disabled={disabled} />
+                        <input type="text" spellCheck="false" placeholder="Start Typing!" onClick={onInputClick} onChange={onInputChange} value={userInput} disabled={disabled} />
 
                         <div className="restart--timer">
                             <button onClick={onRestartClick}><VscDebugRestart className="icon" /><h2 className="res">Restart</h2></button><span className="times"><div className="time">{seconds === 0 ? 60 : seconds}</div></span>
@@ -548,7 +549,7 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
                     </div>
                 </div>
             </div>
-            <div className="navigation">
+            {/* <div className="navigation">
                 <div className="link--container">
                     <h3>Languages</h3>
                     <Link onClick={() => changeLanguage("HTML")} to="html" className="languages"><AiOutlineHtml5 className="icon"/><h2>HTML</h2></Link>
@@ -556,7 +557,7 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
                     <Link onClick={() => changeLanguage("JavaScript")} to="javascript" className="languages"><SiJavascript className="icon"/><h2>JavaScript</h2></Link>
                     <Link onClick={() => changeLanguage("Python")} to="python" className="languages"><SiPython className="icon"/><h2>Python</h2></Link>
                 </div>
-            </div>
+            </div> */}
         </StyledTypingArea>
     )
 }
