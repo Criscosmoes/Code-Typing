@@ -1,6 +1,6 @@
 import React, {useEffect } from 'react'
 import styled from "styled-components"; 
-import Countdown from 'react-countdown';
+
 
 import useState from 'react-usestateref'
 
@@ -9,22 +9,17 @@ import { Link } from "react-router-dom";
 
 // icons 
 import { BiHomeAlt } from "react-icons/bi"; 
-import { BiUser } from "react-icons/bi";
 import { AiOutlineTable } from "react-icons/ai"; 
 import { RiArrowLeftCircleLine} from "react-icons/ri"
 import { FcGoogle } from "react-icons/fc";
 import { FiSettings } from "react-icons/fi"; 
 
 // languages 
-import { AiOutlineHtml5 } from "react-icons/ai";
-import { IoLogoCss3 } from "react-icons/io";
-import { SiJavascript } from "react-icons/si"; 
-import { SiPython } from "react-icons/si"; 
 
 
 
 import { connect } from 'react-redux';
-import { logoutUser, sendScore } from "../actions"; 
+import { logoutUser, sendScore, fetchLanguage, languageTerm } from "../actions"; 
 
 
 
@@ -32,9 +27,7 @@ import { logoutUser, sendScore } from "../actions";
 
 import axios from "axios"; 
 import { useTimer } from 'react-timer-hook';
-
-
-import { VscDebugRestart } from "react-icons/vsc"; 
+ 
 
 
 //
@@ -253,20 +246,13 @@ h3 {
 
 `
 
-const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) => {
+const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id , currentLanguage, fetchLanguage, term}) => {
 
 
     // input area code 
 
     const {
         seconds,
-        minutes,
-        hours,
-        days,
-        isRunning,
-        start,
-        pause,
-        resume,
         restart,
     } = useTimer({ expiryTimestamp, onExpire: () => {
         onTimeExpire(); 
@@ -290,8 +276,6 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
 
         const wpm = Math.floor(correctWordsRef.current / wrongWordsRef.current)
 
-        console.log(wpm); 
-
         // if we have a user currently logged in, save their score to db
         if(username && wpm > 0 && id){
 
@@ -311,12 +295,11 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
 
 
 
-    const changeLanguage = async (language) => {
+/*     const changeLanguage = async (language) => {
 
 
         const response = await axios.get("/api/texts"); 
 
-        console.log(response); 
 
         const filteredArr = response.data.filter(cur => cur.language === language)
 
@@ -341,19 +324,7 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
         setText(lastItem); 
         setParagraph(lastItem.split("")); 
 
-    }
-
-
-
-    /* Randomize array in-place using Durstenfeld shuffle algorithm */
-    function shuffleArray(array) {
-        for (var i = array.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-    }
+    } */
 
    
 
@@ -486,15 +457,28 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
     useEffect(async () => {
 
 
-        const response = await axios.get("http://localhost:5000/api/texts"); 
+        const response = await axios.get("/api/texts"); 
 
-        const filteredArr = response.data.filter(cur => cur.language === "Python")
 
+        const filteredArr = response.data.filter(cur => cur.language === term); 
+
+        console.log(filteredArr); 
 
         const arr = filteredArr.map(cur => {
             return cur.text; 
         })
 
+        /* Randomize array in-place using Durstenfeld shuffle algorithm */
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+        
         shuffleArray(arr); 
         setData(arr); 
 
@@ -504,7 +488,7 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
         setParagraph(lastItem.split("")); 
 
 
-    }, [])
+    }, [term])
     
 
     const onLogInClick = () => {
@@ -522,10 +506,10 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id }) =>
     const isUserloggedIn = user => {
 
         if(user){
-            return <Link onClick={onLogOutClick} className="link"><RiArrowLeftCircleLine className="icon"/><h2>Log Out</h2></Link>
+            return <div onClick={onLogOutClick} className="link"><RiArrowLeftCircleLine className="icon"/><h2>Log Out</h2></div>
         }
         else {
-            return <Link onClick={onLogInClick} className="link"><FcGoogle className="icon"/><h2>Log in</h2></Link>
+            return <div onClick={onLogInClick} className="link"><FcGoogle className="icon"/><h2>Log in</h2></div>
         }
     }
 
@@ -572,8 +556,10 @@ const mapStateToProps = state => {
 
     return {
         username: state.currentUser.username, 
-        id: state.currentUser.id
+        id: state.currentUser.id, 
+        currentLanguage: state.currentLanguage, 
+        term: state.term
     }
 }
 
-export default connect(mapStateToProps, { logoutUser, sendScore })(TypingArea); 
+export default connect(mapStateToProps, { logoutUser, sendScore, fetchLanguage })(TypingArea); 

@@ -1,7 +1,5 @@
 import axios from "axios"; 
 
-import { FETCH_USER } from './types';
-
 
 export const fetchUser = () => async dispatch => {
 
@@ -29,11 +27,20 @@ export const fetchLanguage = language => async dispatch => {
 }
 
 
+export const languageTerm = e => {
+
+    return {
+        type: "LANGUAGE_TERM", 
+        payload: e.target.value 
+    }
+
+}
+
 
 export const logoutUser = () => async dispatch => {
 
    try {
-       const response = await axios.get("/api/logout"); 
+       await axios.get("/api/logout"); 
 
        dispatch({type: "LOGOUT_USER", payload: ""}) 
 
@@ -48,9 +55,7 @@ export const sendScore = (wordsPerMinute, userId, username) => async dispatch =>
 
     try {
 
-        const response = await axios.post("/api/scores", {score: wordsPerMinute, owner: userId, name: username}); 
-
-        console.log(response); 
+        await axios.post("/api/scores", {score: wordsPerMinute, owner: userId, name: username}); 
 
     }
     catch(e){
@@ -64,8 +69,6 @@ export const fetchScores = () => async dispatch => {
 
     try {
         const response = await axios.get("/api/leaders"); 
-
-        console.log(response.data);
 
         const leaders = response.data.sort(function(a,b){return b.wordsPerMinute - a.wordsPerMinute})
 

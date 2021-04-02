@@ -58,7 +58,7 @@ const Footer = () => {
     return (
         <StyledFooter>
             <h3 className="copyright">Copyright © 2021</h3>
-            <h3 className="made--by">Made By: <a onClick={onLinkClick}> Cristian 🙂</a></h3>
+            <h3 className="made--by">Made By: <a href="#" onClick={onLinkClick}> Cristian 🙂</a></h3>
         </StyledFooter>
     )
 }

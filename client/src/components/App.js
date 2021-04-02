@@ -12,8 +12,6 @@ import "../App.css";
 // components
 import NavBar from './NavBar';
 import TypingArea from './TypingArea';
-import MyTimer from './MyTimer';
-import SideLinks from './SideLinks';
 import Footer from './Footer';
 import Leaderboard from './Leaderboard';
 import Settings from "./Settings"; 
@@ -30,7 +28,7 @@ const App = ({ fetchUser, fetchScores }) => {
         fetchUser();
         fetchScores(); 
 
-    }, [fetchUser])
+    }, [fetchUser, fetchScores])
 
 
 

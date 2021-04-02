@@ -5,7 +5,6 @@ import styled from "styled-components";
 
 // icons
 import { BiHomeAlt } from "react-icons/bi"; 
-import { BiUser } from "react-icons/bi";
 import { AiOutlineTable } from "react-icons/ai"; 
 import { RiArrowLeftCircleLine} from "react-icons/ri"
 import { FcGoogle } from "react-icons/fc";

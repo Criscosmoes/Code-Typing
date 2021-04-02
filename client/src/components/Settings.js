@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from "styled-components"; 
 import Countdown from 'react-countdown';
 
@@ -9,30 +9,25 @@ import { Link } from "react-router-dom";
 
 // icons 
 import { BiHomeAlt } from "react-icons/bi"; 
-import { BiUser } from "react-icons/bi";
 import { AiOutlineTable } from "react-icons/ai"; 
 import { RiArrowLeftCircleLine} from "react-icons/ri"
 import { FcGoogle } from "react-icons/fc";
 import { FiSettings } from "react-icons/fi"; 
 
 // languages 
-import { AiOutlineHtml5 } from "react-icons/ai";
-import { IoLogoCss3 } from "react-icons/io";
-import { SiJavascript } from "react-icons/si"; 
-import { SiPython } from "react-icons/si"; 
+
 
 
 
 import { connect } from 'react-redux';
 
-import { logoutUser } from "../actions"; 
+import { logoutUser, languageTerm } from "../actions"; 
 
 
 
 
 // Input Area code 
 
-import axios from "axios"; 
 
 
 
@@ -150,7 +145,10 @@ option {
 
 `
 
-const Settings = ({leaders, username}) => {
+const Settings = ({leaders, username, languageTerm}) => {
+
+
+    const [selectedValue, setSelectedValue] = useState(""); 
 
 
     const isUserloggedIn = user => {
@@ -176,7 +174,7 @@ const Settings = ({leaders, username}) => {
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
-      }
+    }
 
     const renderedLeaders = leaders.map((cur, index) => {
 
@@ -188,6 +186,11 @@ const Settings = ({leaders, username}) => {
             </div>
         )
     })
+
+    const onInputChange = e => {
+
+        console.log(e.target.value); 
+    }
 
     return (
         <StyledSettings>
@@ -204,9 +207,9 @@ const Settings = ({leaders, username}) => {
                 
                 <div className="choose--language">
                     <label for="languages">Choose a language: </label>
-                    <select name="languages">
-                        <option value="html">HTML</option>
-                        <option value="css">CSS</option>
+                    <select onChange={languageTerm} name="languages">
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
                         <option value="JavaScript">JavaScript</option>
                         <option value="Python">Python</option>
                     </select>
@@ -225,4 +228,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Settings)
+export default connect(mapStateToProps, {languageTerm})(Settings)

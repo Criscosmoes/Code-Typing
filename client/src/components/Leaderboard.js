@@ -1,6 +1,6 @@
-import React, {useEffect } from 'react'
+import React from 'react'
 import styled from "styled-components"; 
-import Countdown from 'react-countdown';
+
 
 
 
@@ -9,17 +9,13 @@ import { Link } from "react-router-dom";
 
 // icons 
 import { BiHomeAlt } from "react-icons/bi"; 
-import { BiUser } from "react-icons/bi";
 import { AiOutlineTable } from "react-icons/ai"; 
 import { RiArrowLeftCircleLine} from "react-icons/ri"
 import { FcGoogle } from "react-icons/fc";
 import { FiSettings } from "react-icons/fi"; 
 
 // languages 
-import { AiOutlineHtml5 } from "react-icons/ai";
-import { IoLogoCss3 } from "react-icons/io";
-import { SiJavascript } from "react-icons/si"; 
-import { SiPython } from "react-icons/si"; 
+
 
 
 
@@ -32,7 +28,6 @@ import { logoutUser } from "../actions";
 
 // Input Area code 
 
-import axios from "axios"; 
 
 
 

@@ -8,12 +8,13 @@ const initialState = {
 
     leaderboards: [], 
 
+    term: "Python", 
+
 }
 
 
 export default (state = initialState, action) => {
 
-    console.log(action); 
     switch(action.type) {
         case "FETCH_USER": 
             return {
@@ -39,6 +40,11 @@ export default (state = initialState, action) => {
             return {
                 ...state, 
                 leaderboards: action.payload, 
+            }
+        case "LANGUAGE_TERM": 
+            return {
+                ...state, 
+                term: action.payload, 
             }
         default: 
             return state; 

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { FcGoogle } from "react-icons/fc";
 import { connect } from "react-redux";
 
-import { AiOutlineCodepen } from "react-icons/ai";
 import { SiCodesandbox } from "react-icons/si";  
 
 const StyledNavBar = styled.div`
