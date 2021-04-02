@@ -295,39 +295,6 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id , cur
 
 
 
-/*     const changeLanguage = async (language) => {
-
-
-        const response = await axios.get("/api/texts"); 
-
-
-        const filteredArr = response.data.filter(cur => cur.language === language)
-
-        const arr = filteredArr.map(cur => {
-            return cur.text; 
-        })
-
-        function shuffleArray(array) {
-            for (var i = array.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
-                var temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
-        }
-
-        shuffleArray(arr); 
-        setData(arr); 
-
-        const lastItem = arr[arr.length - 1]; 
-
-        setText(lastItem); 
-        setParagraph(lastItem.split("")); 
-
-    } */
-
-   
-
     const spanText = paragraph.map((cur, index) => {
         return (
             <span key={index}>{cur}</span>
@@ -539,15 +506,6 @@ const TypingArea = ({username, logoutUser,  expiryTimestamp, sendScore, id , cur
                     </div>
                 </div>
             </div>
-            {/* <div className="navigation">
-                <div className="link--container">
-                    <h3>Languages</h3>
-                    <Link onClick={() => changeLanguage("HTML")} to="html" className="languages"><AiOutlineHtml5 className="icon"/><h2>HTML</h2></Link>
-                    <Link onClick={() => changeLanguage("CSS")} to="css" className="languages"><IoLogoCss3 className="icon"/><h2>CSS</h2></Link>
-                    <Link onClick={() => changeLanguage("JavaScript")} to="javascript" className="languages"><SiJavascript className="icon"/><h2>JavaScript</h2></Link>
-                    <Link onClick={() => changeLanguage("Python")} to="python" className="languages"><SiPython className="icon"/><h2>Python</h2></Link>
-                </div>
-            </div> */}
         </StyledTypingArea>
     )
 }

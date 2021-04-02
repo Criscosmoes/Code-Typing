@@ -145,10 +145,7 @@ option {
 
 `
 
-const Settings = ({leaders, username, languageTerm}) => {
-
-
-    const [selectedValue, setSelectedValue] = useState(""); 
+const Settings = ({username, languageTerm}) => {
 
 
     const isUserloggedIn = user => {
@@ -172,25 +169,6 @@ const Settings = ({leaders, username, languageTerm}) => {
         
     }
 
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    const renderedLeaders = leaders.map((cur, index) => {
-
-        return (
-            <div className="leaders">
-                <div className="place">{index + 1}. </div>
-                <h2 className="name">{capitalizeFirstLetter(cur.name)}</h2>
-                <div className="score">WPM: <span>{cur.wordsPerMinute}</span></div>
-            </div>
-        )
-    })
-
-    const onInputChange = e => {
-
-        console.log(e.target.value); 
-    }
 
     return (
         <StyledSettings>
@@ -208,10 +186,11 @@ const Settings = ({leaders, username, languageTerm}) => {
                 <div className="choose--language">
                     <label for="languages">Choose a language: </label>
                     <select onChange={languageTerm} name="languages">
-                        <option value="HTML">HTML</option>
+                        <option value="0">Select: </option>
                         <option value="CSS">CSS</option>
                         <option value="JavaScript">JavaScript</option>
                         <option value="Python">Python</option>
+                        <option value="HTML">HTML</option>
                     </select>
                 </div>
             </div>
@@ -222,8 +201,7 @@ const Settings = ({leaders, username, languageTerm}) => {
 const mapStateToProps = state => {
 
 
-    return {
-        leaders: state.leaderboards, 
+    return { 
         username: state.currentUser.username, 
     }
 }
