@@ -40,7 +40,7 @@ import axios from "axios";
 
 //
 
-const StyledLeaderboard = styled.div`
+const StyledSettings= styled.div`
 
 @import url('https://fonts.googleapis.com/css2?family=Karla&display=swap'); 
 
@@ -115,7 +115,7 @@ h2 {
     font-family: 'Karla', sans-serif;
 }
 
-h1 {
+/* h1 {
     font-size: 8rem;
     margin: 1%
 }
@@ -152,13 +152,13 @@ h1 {
 span {
     font-size: 5rem;
     color: #228B22; 
-}
+} */
 
 
 
 `
 
-const Leaderboard = ({leaders, username}) => {
+const Settings = ({leaders, username}) => {
 
 
     const isUserloggedIn = user => {
@@ -198,7 +198,7 @@ const Leaderboard = ({leaders, username}) => {
     })
 
     return (
-        <StyledLeaderboard>
+        <StyledSettings>
             <div className="navigation">
                 <div className="link--container">
                     <Link to="/" className="link"><BiHomeAlt className="icon"/><h2>Home</h2></Link>
@@ -208,12 +208,9 @@ const Leaderboard = ({leaders, username}) => {
                 </div>
             </div>
             <div className="typing--area">
-                <h1>Leaderboard</h1>
-                <div className="table">
-                    {renderedLeaders}
-                </div>
+                <h1>Settings</h1>
             </div>
-        </StyledLeaderboard>
+        </StyledSettings>
     )
 }
 
@@ -226,7 +223,7 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Leaderboard)
+export default connect(mapStateToProps)(Settings)
 
 
 

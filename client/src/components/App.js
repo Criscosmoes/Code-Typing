@@ -16,6 +16,7 @@ import MyTimer from './MyTimer';
 import SideLinks from './SideLinks';
 import Footer from './Footer';
 import Leaderboard from './Leaderboard';
+import Settings from "./Settings"; 
 
 
 const App = ({ fetchUser, fetchScores }) => {
@@ -45,7 +46,11 @@ const App = ({ fetchUser, fetchScores }) => {
                    <NavBar />
                    <Leaderboard />
                    <Footer />
-                   
+               </Route>
+               <Route path="/settings">
+                   <NavBar />
+                   <Settings />
+                   <Footer />
                </Route>
            </Switch>
         </div>
