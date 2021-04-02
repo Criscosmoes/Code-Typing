@@ -256,7 +256,7 @@ const StyledTypingArea = styled.div`
   .stats > * {
     width: 100%;
     margin: 2%;
-    border-bottom: 2px solid gray; 
+    border-bottom: 2px solid gray;
   }
 
   .result {
@@ -269,10 +269,12 @@ const StyledTypingArea = styled.div`
 
   .correct--words {
     font-size: 4rem;
+    color: green;
   }
 
   .wrong--words {
     font-size: 4rem;
+    color: red;
   }
 
   .accuracy {
@@ -284,14 +286,14 @@ const StyledTypingArea = styled.div`
     width: 50%;
     font-size: 3rem;
     background: gray;
-    border: 2px solid gray; 
+    border: 2px solid gray;
     transition: ease-out 0.4s;
   }
 
   .back--button:hover {
     background: green;
     transition: ease-in 0.4s;
-    border: 2px solid green; 
+    border: 2px solid green;
   }
 `;
 
@@ -326,7 +328,7 @@ const TypingArea = ({
 
   const onTimeExpire = () => {
     // calculate wpm and send to db
-    const wpm = Math.floor(correctWordsRef.current / wrongWordsRef.current);
+    const wpm = Math.floor(correctWordsRef.current / 5)
 
     // if we have a user currently logged in, save their score to db
     if (username && wpm > 0 && id) {
@@ -432,7 +434,7 @@ const TypingArea = ({
 
   const onInputClick = () => {
     const time = new Date();
-    time.setSeconds(time.getSeconds() + 2);
+    time.setSeconds(time.getSeconds() + 60);
     restart(time);
   };
 
@@ -500,7 +502,11 @@ const TypingArea = ({
             <h2 className="result">Result</h2>
             <div className="wpm">{Math.floor(correctWords / 5)} WPM</div>
             <div className="accuracy">
-              Accuracy: {correctWords / (correctWords + wrongWords)}%
+              Accuracy:{" "}
+              {((correctWords / (correctWords + wrongWords)) * 100).toPrecision(
+                4
+              )}
+              %
             </div>
             <div className="correct--words">Correct Words: {correctWords}</div>
             <div className="wrong--words">Incorrect Words: {wrongWords}</div>
@@ -514,7 +520,15 @@ const TypingArea = ({
       return (
         <div className={`big--container`}>
           <div className="main--container">
-            <div className="text--area">{spanText}</div>
+            <motion.div
+              exit={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              initial={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="text--area"
+            >
+              {spanText}
+            </motion.div>
             <input
               type="text"
               spellCheck="false"
