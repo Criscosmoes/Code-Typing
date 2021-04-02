@@ -72,7 +72,9 @@ export const fetchScores = () => async dispatch => {
 
         const leaders = response.data.sort(function(a,b){return b.wordsPerMinute - a.wordsPerMinute})
 
-        dispatch({type: "FETCH_SCORES", payload: leaders})
+        const first10 = leaders.splice(0, 10); 
+
+        dispatch({type: "FETCH_SCORES", payload: first10})
     }
     catch(e){
         console.log(e.message); 
