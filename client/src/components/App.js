@@ -62,5 +62,7 @@ const mapStateToProps = state => {
     }
 }
 
+// test push 
+
 export default connect(mapStateToProps, { fetchUser, fetchScores })(App)
 
