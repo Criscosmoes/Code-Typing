@@ -1,7 +1,9 @@
 const dotenv = require("dotenv"); 
-const server = require("./api/server");
+
 const mongoose = require("mongoose"); 
 const express = require("express"); 
+
+const server = require("./api/server");
 
 
 
@@ -17,6 +19,8 @@ mongoose.connect(process.env.MONGODB_URI, {useUnifiedTopology: true, useNewUrlPa
 
 
 if (process.env.NODE_ENV === "production"){
+
+    console.log("this is a test"); 
     const path = require("path"); 
 
     server.use(express.static(path.join(__dirname, 'client/build')));
