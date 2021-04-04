@@ -8,6 +8,7 @@ const server = require("./api/server");
 
 
 
+
 dotenv.config(); 
 
 
@@ -23,7 +24,7 @@ if (process.env.NODE_ENV === "production"){
     console.log("this is a test"); 
     const path = require("path"); 
 
-    server.use(express.static(path.join(__dirname, 'client/build')));
+    server.use(express.static(path.join(__dirname, '/client/build')));
 
     server.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, "client", "build", "index.html")); 
