@@ -45,4 +45,22 @@ server.use("/api", UserRouter);
 server.use(PassportRouter);
 
 
+if (process.env.NODE_ENV === "production"){
+
+    console.log("this is a test"); 
+    const path = require("path"); 
+
+    server.use('/static', express.static(path.join(__dirname, '../client/build')));
+
+    server.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../client", "build", "index.html")); 
+        console.log("this worked"); 
+    })
+}
+
+
+
+
+
+
 module.exports = server;
