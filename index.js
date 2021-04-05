@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URI, {useUnifiedTopology: true, useNewUrlPa
 
 
 
-
+console.log(__dirname); 
 const PORT = process.env.PORT || 4000; 
 
 
