@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { motion } from "framer-motion";
@@ -131,9 +131,62 @@ const StyledLeaderboard = styled.div`
   .user {
     font-weight: bolder; 
   }
+
+
+  @media (max-width: 500px){
+
+    & {
+      display: flex; 
+      justify-content: flex-start; 
+      align-items: center; 
+      flex-direction: column; 
+      height: 600px; 
+    }
+
+    .typing--area {
+      width: 100%
+    }
+
+    .typing--area > * {
+      margin: 2%
+    }
+
+    h1 {
+      font-size: 4.5rem; 
+    }
+
+    .place {
+      font-size: 3rem;
+    }
+
+    .name {
+      width: 40%; 
+      font-size: 3rem; 
+    }
+
+    span {
+      font-size: 3rem; 
+    }
+
+    .leaders {
+      display: flex; 
+      justify-content: space-around; 
+      align-items: center; 
+      margin: 3%
+    }
+
+
+  }
+
+
+
+
 `;
 
 const Leaderboard = ({ leaders, username, fetchScores, logoutUser }) => {
+
+  const [width, setWidth] = useState(window.innerWidth); 
+
   const onLogInClick = () => {
     window.location = "/auth/google";
   };
@@ -178,13 +231,17 @@ const Leaderboard = ({ leaders, username, fetchScores, logoutUser }) => {
     );
   });
 
-  useEffect(() => {
-    fetchScores();
-    console.log(leaders);
-  }, []);
 
-  return (
-    <StyledLeaderboard>
+  const showSideBar = () => {
+
+    if (window.innerWidth < 500){
+      // we are in phone view
+
+      return; 
+    }
+
+    // else we are not in phone view
+    return (
       <motion.div className="navigation">
         <div className="link--container">
           <Link to="/" className="link">
@@ -202,6 +259,24 @@ const Leaderboard = ({ leaders, username, fetchScores, logoutUser }) => {
           {isUserloggedIn(username)}
         </div>
       </motion.div>
+    )
+  }
+
+  useEffect(() => {
+    fetchScores();
+
+    const handleWindowResize = () => setWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleWindowResize);
+    showSideBar(); 
+
+    return () => window.removeEventListener("resize", handleWindowResize)
+
+  }, []);
+
+  return (
+    <StyledLeaderboard>
+      {showSideBar()}
       <motion.div
         exit={{ opacity: 0 }}
         animate={{ opacity: 1 }}

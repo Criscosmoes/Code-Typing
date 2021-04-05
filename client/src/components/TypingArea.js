@@ -323,7 +323,10 @@ const TypingArea = ({
   const [correctWords, setCorrectWords, correctWordsRef] = useState(0);
   const [disabled, setDisabled] = useState(false);
   const [finished, setFinished, finishedRef] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth); 
 
+
+  
   const onTimeExpire = () => {
     // calculate wpm and send to db
     const wpm = Math.floor(correctWordsRef.current / 5)

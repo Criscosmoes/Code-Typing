@@ -3,8 +3,10 @@ import styled from "styled-components";
 
 import { FcGoogle } from "react-icons/fc";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom"; 
 
-import { SiCodesandbox } from "react-icons/si";  
+import { SiCodesandbox } from "react-icons/si"; 
+import { AiOutlineBars } from "react-icons/ai";  
 
 const StyledNavBar = styled.div`
 
@@ -105,6 +107,44 @@ const StyledNavBar = styled.div`
       padding: 3%
     }
 
+
+    .nav-links {
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      z-index: 2;
+      height: 100vh; 
+      width: 320px; 
+      background: gray; 
+      transform: translateX(-320px);
+      transition: transform 0.5s; 
+      background: #181818; 
+      border-right: 3px solid gray; 
+    }
+
+    .open {
+      transform: translateX(0); 
+      transition: 500ms ease-in; 
+    }
+
+    .all-links {
+      display: flex; 
+      margin: 4%; 
+      align-items: center; 
+      font-size: 2.2rem; 
+      padding: 12px 15px; 
+      color: white; 
+    }
+
+    .all-links > * {
+      margin-right: 15px; 
+    }
+
+    .nav-icons {
+      font-size: 2.2rem; 
+      border: none; 
+    }
+
   }
 
 
@@ -114,6 +154,7 @@ const NavBar = ({username}) => {
 
 
   const [width, setWidth] = useState(window.innerWidth); 
+  const [isOpen, setIsOpen] = useState(false); 
 
   const onButtonClick = () => {
 
@@ -152,12 +193,26 @@ const NavBar = ({username}) => {
   }
 
 
+  
   const sideBar = () => {
+
+    setIsOpen(!isOpen); 
+
+
+    if (isOpen) {
+      return "Open"
+    }
+
+    return ""; 
+    
+  }
+
+  const viewport = () => {
 
     if (window.innerWidth < 550){
       // we are a phone screen 
 
-      return <div className="logo"><SiCodesandbox className="icon" /></div>
+      return <div className="logo"><AiOutlineBars onClick={sideBar} className="icon" /></div>
     }
     else {
       // we are in desktop mode
@@ -165,7 +220,7 @@ const NavBar = ({username}) => {
     }
   }
 
- 
+
 
 
 
@@ -173,8 +228,8 @@ const NavBar = ({username}) => {
 
     const handleWindowResize = () => setWidth(window.innerWidth);
 
-    sideBar();
-    trackUser(username); 
+    viewport(); 
+    trackUser(username);
 
     window.addEventListener("resize", handleWindowResize);
 
@@ -186,8 +241,17 @@ const NavBar = ({username}) => {
 
   return (
     <StyledNavBar>
-      {sideBar()}
-      {trackUser(username)} 
+      {viewport()}
+      {trackUser(username)}
+
+      {isOpen ? <div className={`nav-links ${isOpen ? "open" : ""}`}>
+            <Link className="all-links" onClick={() => setIsOpen(false)} to="/">Home</Link>
+            <Link className="all-links" onClick={() => setIsOpen(false)} to="/leaderboard">Leaderboard</Link>
+            <Link className="all-links" onClick={() => setIsOpen(false)} to="/settings">Settings</Link>
+            <div className="all-links" onClick={() => setIsOpen(false)}>Back</div>
+            <div className=" all-links logout">Logout</div>
+          </div> : ""}
+      
     </StyledNavBar>
   );
 };
