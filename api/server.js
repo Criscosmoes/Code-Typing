@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const path = require("path"); 
 
 
 const cookieSession = require("cookie-session"); 
@@ -47,14 +48,11 @@ server.use(PassportRouter);
 
 if (process.env.NODE_ENV === "production"){
 
-    console.log("this is a test"); 
-    const path = require("path"); 
 
-    server.use('/static', express.static(path.join(__dirname, '../client/build')));
+    server.use(express.static(path.join(__dirname, "../client/build"))); 
 
     server.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "../client", "build", "index.html")); 
-        console.log("this worked"); 
+        res.sendFile(path.join(__dirname+"../client/build/index.html")); 
     })
 }
 
