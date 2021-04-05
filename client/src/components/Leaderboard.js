@@ -129,7 +129,7 @@ const StyledLeaderboard = styled.div`
   }
 
   .user {
-    color: red;
+    font-weight: bolder; 
   }
 `;
 
@@ -170,7 +170,7 @@ const Leaderboard = ({ leaders, username, fetchScores, logoutUser }) => {
         <div className={`place ${username === cur.name ? "user" : ""}`}>
           {index + 1}.{" "}
         </div>
-        <h2 className={`name`}>{capitalizeFirstLetter(cur.name)}</h2>
+        <h2 className={`name ${username === cur.name ? "user" : ""}`}>{capitalizeFirstLetter(cur.name)}</h2>
         <div className="score">
           WPM: <span>{cur.wordsPerMinute}</span>
         </div>

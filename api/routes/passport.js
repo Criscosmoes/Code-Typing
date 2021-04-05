@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy; 
 
 //user model
 const User = require("../models/users");
@@ -62,7 +62,7 @@ router.get(
 
 router.get("/api/logout", (req, res) => {
   req.logout();
-  res.send(req.user);
+  res.redirect("/")
 });
 
 router.get("/api/current_user", (req, res) => {

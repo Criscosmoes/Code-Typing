@@ -16,7 +16,7 @@ import { FiSettings } from "react-icons/fi";
 // languages
 
 import { connect } from "react-redux";
-import { logoutUser, sendScore, fetchLanguage, languageTerm } from "../actions";
+import { logoutUser, sendScore, fetchLanguage } from "../actions";
 
 // Input Area code
 
@@ -303,8 +303,6 @@ const TypingArea = ({
   expiryTimestamp,
   sendScore,
   id,
-  currentLanguage,
-  fetchLanguage,
   term,
 }) => {
   // input area code
@@ -321,7 +319,7 @@ const TypingArea = ({
   const [data, setData] = useState([]);
   const [text, setText] = useState("");
   const [paragraph, setParagraph] = useState(text.split(""));
-  const [wrongWords, setWrongWords, wrongWordsRef] = useState(0);  
+  const [wrongWords, setWrongWords] = useState(0);  
   const [correctWords, setCorrectWords, correctWordsRef] = useState(0);
   const [disabled, setDisabled] = useState(false);
   const [finished, setFinished, finishedRef] = useState(false);
@@ -329,6 +327,7 @@ const TypingArea = ({
   const onTimeExpire = () => {
     // calculate wpm and send to db
     const wpm = Math.floor(correctWordsRef.current / 5)
+
 
     // if we have a user currently logged in, save their score to db
     if (username && wpm > 0 && id) {
@@ -472,17 +471,14 @@ const TypingArea = ({
     window.location = "/auth/google";
   };
 
-  const onLogOutClick = () => {
-    logoutUser();
-  };
 
   const isUserloggedIn = (user) => {
     if (user) {
       return (
-        <div onClick={onLogOutClick} className="link">
+        <a href="/api/logout" className="link">
           <RiArrowLeftCircleLine className="icon" />
           <h2>Log Out</h2>
-        </div>
+        </a>
       );
     } else {
       return (
