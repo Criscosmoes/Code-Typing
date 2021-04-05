@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 
 import { FcGoogle } from "react-icons/fc";
@@ -83,9 +83,37 @@ const StyledNavBar = styled.div`
     font-family: 'Karla', sans-serif;
     transition: ease-in .5s; 
   }
+
+
+
+
+  // iphone queries 
+
+  @media (max-width: 500px){
+
+    .name {
+      font-size: 2.4rem; 
+    }
+
+
+    h2 {
+      font-size: 2.3rem; 
+    }
+
+    .login--button {
+      width: 40%;
+      padding: 3%
+    }
+
+  }
+
+
 `;
 
 const NavBar = ({username}) => {
+
+
+  const [width, setWidth] = useState(window.innerWidth); 
 
   const onButtonClick = () => {
 
@@ -100,22 +128,66 @@ const NavBar = ({username}) => {
     }
     else {
 
-      return (
-        <div className="login--button" onClick={onButtonClick}>
-          <FcGoogle className="google--icon" />
-          <h2>Sign in with Google</h2>
-        </div>
-      )
+      if (window.innerWidth < 550){
+
+        return (
+          <div className="login--button" onClick={onButtonClick}>
+            <FcGoogle className="google--icon" />
+            <h2>Sign in</h2>
+          </div>
+        )
+      }
+      else {
+        return (
+          <div className="login--button" onClick={onButtonClick}>
+            <FcGoogle className="google--icon" />
+            <h2>Sign in with Google</h2>
+          </div>
+        )
+      }
+
+      
 
     }
   }
 
 
+  const sideBar = () => {
+
+    if (window.innerWidth < 550){
+      // we are a phone screen 
+
+      return <div className="logo"><SiCodesandbox className="icon" /></div>
+    }
+    else {
+      // we are in desktop mode
+      return <div className="logo"><SiCodesandbox className="icon" /><h4>Code Typing</h4></div>
+    }
+  }
+
+ 
+
+
+
+  useEffect(() => {
+
+    const handleWindowResize = () => setWidth(window.innerWidth);
+
+    sideBar();
+    trackUser(username); 
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => window.removeEventListener("resize", handleWindowResize)
+
+  }, []) 
+
+
+
   return (
     <StyledNavBar>
-      <div className="logo"><SiCodesandbox className="icon" /><h4>Code Typing</h4></div>
-      {trackUser(username)}
-      
+      {sideBar()}
+      {trackUser(username)} 
     </StyledNavBar>
   );
 };
