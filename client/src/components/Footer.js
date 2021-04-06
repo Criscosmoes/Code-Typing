@@ -42,7 +42,23 @@ a:hover {
 }
 
 
-// test
+@media (max-width: 500px){
+
+    .copyright {
+        font-size: 1.5rem;
+    }
+
+    .made--by {
+        font-size: 1.6rem;
+    }
+
+    a {
+        font-size: 2rem; 
+        text-decoration: underline; 
+    }
+
+    
+}
 
 `
 
@@ -53,7 +69,7 @@ const Footer = () => {
     return (
         <StyledFooter>
             <h3 className="copyright">Copyright © 2021</h3>
-            <h3 className="made--by">Made By: <a href="https://cristian-fernandez.vercel.app/" > Cristian 🙂</a></h3>
+            <h3 className="made--by">Made By: <a href="https://cristian-fernandez.vercel.app/" > Cristian</a> 🙂</h3>
         </StyledFooter>
     )
 }

@@ -123,15 +123,22 @@ const StyledSettings = styled.div`
 
   @media (max-width: 500px){
 
+
+    & {
+      height: 600px; 
+    }
+
     h1 {
       font-size: 4.5rem; 
     }
+
 
     .typing--area {
       width: 100%
     }
 
     .choose--language {
+      text-align: center; 
       display: flex; 
       align-items: center; 
       flex-direction: column; 
