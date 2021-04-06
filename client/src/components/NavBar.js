@@ -86,9 +86,62 @@ const StyledNavBar = styled.div`
     transition: ease-in .5s; 
   }
 
+  @media (max-width: 800px){
+
+    .name {
+      font-size: 2.4rem; 
+    }
 
 
+    h2 {
+      font-size: 2.3rem; 
+    }
 
+    .login--button {
+      width: 30%;
+      padding: 1%
+    }
+
+
+    .nav-links {
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      z-index: 2;
+      height: 100vh; 
+      width: 320px; 
+      background: gray; 
+      transform: translateX(-320px);
+      transition: transform 0.5s; 
+      background: #181818; 
+      border-right: 3px solid gray; 
+    }
+
+    .open {
+      transform: translateX(0); 
+      transition: 500ms ease-in; 
+    }
+
+    .all-links {
+      display: flex; 
+      margin: 4%; 
+      align-items: center; 
+      font-size: 2.2rem; 
+      padding: 12px 15px; 
+      color: white;
+      font-family: 'Karla', sans-serif;
+    }
+
+    .all-links > * {
+      margin-right: 15px; 
+    }
+
+    .nav-icons {
+      font-size: 2.2rem; 
+      border: none; 
+    }
+
+  }
   // iphone queries 
 
   @media (max-width: 500px){
@@ -133,7 +186,8 @@ const StyledNavBar = styled.div`
       align-items: center; 
       font-size: 2.2rem; 
       padding: 12px 15px; 
-      color: white; 
+      color: white;
+      font-family: 'Karla', sans-serif;
     }
 
     .all-links > * {
@@ -146,7 +200,6 @@ const StyledNavBar = styled.div`
     }
 
   }
-
 
 `;
 
@@ -169,7 +222,7 @@ const NavBar = ({username}) => {
     }
     else {
 
-      if (window.innerWidth < 550){
+      if (window.innerWidth < 800){
 
         return (
           <div className="login--button" onClick={onButtonClick}>
@@ -209,7 +262,7 @@ const NavBar = ({username}) => {
 
   const viewport = () => {
 
-    if (window.innerWidth < 550){
+    if (window.innerWidth < 800){
       // we are a phone screen 
 
       return <div className="logo"><AiOutlineBars onClick={sideBar} className="icon" /></div>
@@ -248,8 +301,7 @@ const NavBar = ({username}) => {
             <Link className="all-links" onClick={() => setIsOpen(false)} to="/">Home</Link>
             <Link className="all-links" onClick={() => setIsOpen(false)} to="/leaderboard">Leaderboard</Link>
             <Link className="all-links" onClick={() => setIsOpen(false)} to="/settings">Settings</Link>
-            <div className="all-links" onClick={() => setIsOpen(false)}>Back</div>
-            <div className=" all-links logout">Logout</div>
+            <a className="all-links" href="/api/logout">Logout</a>
           </div> : ""}
       
     </StyledNavBar>

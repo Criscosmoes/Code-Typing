@@ -234,7 +234,7 @@ const Leaderboard = ({ leaders, username, fetchScores, logoutUser }) => {
 
   const showSideBar = () => {
 
-    if (window.innerWidth < 500){
+    if (window.innerWidth < 800){
       // we are in phone view
 
       return; 

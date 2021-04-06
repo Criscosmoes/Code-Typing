@@ -121,6 +121,17 @@ const StyledSettings = styled.div`
   }
 
 
+
+  @media (max-width: 800px){
+
+    select {
+      width: 30%
+    }
+
+
+
+  }
+
   @media (max-width: 500px){
 
 
@@ -146,6 +157,10 @@ const StyledSettings = styled.div`
 
     select {
       width: 50%; 
+    }
+
+    label {
+      font-size: 3.5rem; 
     }
 
 
@@ -198,7 +213,7 @@ const Settings = ({ username, languageTerm }) => {
 
   const showSideBar = () => {
 
-    if(window.innerWidth < 500){
+    if(window.innerWidth < 800){
       return;
     }
 
