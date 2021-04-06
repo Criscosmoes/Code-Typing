@@ -295,6 +295,81 @@ const StyledTypingArea = styled.div`
     transition: ease-in 0.4s;
     border: 2px solid green;
   }
+
+
+@media (max-width: 800px){
+
+  .typing--area {
+    width: 100%;
+  }
+
+
+  .text--area {
+    font-size: 4.5rem; 
+  }
+
+  input { 
+    width: 80%
+  }
+
+
+  button {
+    width: 60%; 
+
+  }
+
+  .times {
+    width: 20%
+  }
+
+  .stats {
+    width: 90%
+  }
+
+
+} 
+
+
+
+
+
+
+@media (max-width: 500px){
+
+  
+
+  .typing--area {
+    width: 100%;
+  }
+
+
+  .text--area {
+    font-size: 4.5rem; 
+  }
+
+  input { 
+    width: 80%
+  }
+
+
+  button {
+    width: 60%; 
+
+  }
+
+  .times {
+    width: 20%
+  }
+
+  .stats {
+    width: 90%
+  }
+
+
+
+}
+
+
 `;
 
 const TypingArea = ({
@@ -440,6 +515,37 @@ const TypingArea = ({
     restart(time);
   };
 
+  const showSideBar = () => {
+
+    if (window.innerWidth < 500 || window.innerWidth < 800){
+      return; 
+    }
+
+
+    return (
+      <div className="navigation">
+        <div className="link--container">
+          <Link to="/" className="link">
+            <BiHomeAlt className="icon" />
+            <h2>Home</h2>
+          </Link>
+          <Link to="/leaderboard" className="link">
+            <AiOutlineTable className="icon" />
+            <h2>Leaderboard</h2>
+          </Link>
+          <Link to="/settings" className="link">
+            <FiSettings className="icon" />
+            <h2>Settings</h2>
+          </Link>
+          {isUserloggedIn(username)}
+        </div>
+      </div>
+    )
+
+
+
+  }
+
   useEffect(async () => {
     const response = await axios.get("/api/texts");
 
@@ -468,6 +574,19 @@ const TypingArea = ({
 
     setText(lastItem);
     setParagraph(lastItem.split(""));
+
+    const handleWindowResize = () => setWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleWindowResize);
+    showSideBar(); 
+
+    return () => window.removeEventListener("resize", handleWindowResize)
+
+
+
+
+
+
   }, [term]);
 
   const onLogInClick = () => {
@@ -554,23 +673,7 @@ const TypingArea = ({
 
   return (
     <StyledTypingArea>
-      <div className="navigation">
-        <div className="link--container">
-          <Link to="/" className="link">
-            <BiHomeAlt className="icon" />
-            <h2>Home</h2>
-          </Link>
-          <Link to="/leaderboard" className="link">
-            <AiOutlineTable className="icon" />
-            <h2>Leaderboard</h2>
-          </Link>
-          <Link to="/settings" className="link">
-            <FiSettings className="icon" />
-            <h2>Settings</h2>
-          </Link>
-          {isUserloggedIn(username)}
-        </div>
-      </div>
+      {showSideBar()}
       <motion.div
         exit={{ opacity: 0 }}
         animate={{ opacity: 1 }}

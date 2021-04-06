@@ -1,4 +1,4 @@
-import React  from "react";
+import React, { useEffect, useState }  from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
@@ -119,9 +119,50 @@ const StyledSettings = styled.div`
   option {
     border: 1px solid black;
   }
+
+
+  @media (max-width: 500px){
+
+    h1 {
+      font-size: 4.5rem; 
+    }
+
+    .typing--area {
+      width: 100%
+    }
+
+    .choose--language {
+      display: flex; 
+      align-items: center; 
+      flex-direction: column; 
+    }
+
+    select {
+      width: 50%; 
+    }
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+
 `;
 
 const Settings = ({ username, languageTerm }) => {
+
+
+  const [width, setWidth] = useState(window.innerWidth); 
+
+
+
   const isUserloggedIn = (user) => {
     if (user) {
       return (
@@ -148,8 +189,13 @@ const Settings = ({ username, languageTerm }) => {
     logoutUser();
   };
 
-  return (
-    <StyledSettings>
+  const showSideBar = () => {
+
+    if(window.innerWidth < 500){
+      return;
+    }
+
+    return (
       <div className="navigation">
         <div className="link--container">
           <Link to="/" className="link">
@@ -167,6 +213,24 @@ const Settings = ({ username, languageTerm }) => {
           {isUserloggedIn(username)}
         </div>
       </div>
+    )
+  }
+
+  useEffect(() => {
+
+
+
+    const handleWindowResize = () => setWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleWindowResize);
+    showSideBar(); 
+
+    return () => window.removeEventListener("resize", handleWindowResize)
+  })
+
+  return (
+    <StyledSettings>
+      {showSideBar()}
       <motion.div
         exit={{ opacity: 0 }}
         animate={{ opacity: 1 }}

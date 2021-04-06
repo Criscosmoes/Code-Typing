@@ -37,8 +37,8 @@ const App = ({ fetchUser, fetchScores }) => {
            <Switch>
                <Route path="/" exact>
                    <NavBar />
-                   {/* <TypingArea />
-                   <Footer /> */}
+                   <TypingArea />
+                   <Footer />
                </Route>
                <Route path="/leaderboard">
                    <NavBar />
