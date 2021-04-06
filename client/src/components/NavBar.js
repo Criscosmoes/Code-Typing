@@ -301,7 +301,7 @@ const NavBar = ({username}) => {
             <Link className="all-links" onClick={() => setIsOpen(false)} to="/">Home</Link>
             <Link className="all-links" onClick={() => setIsOpen(false)} to="/leaderboard">Leaderboard</Link>
             <Link className="all-links" onClick={() => setIsOpen(false)} to="/settings">Settings</Link>
-            <a className="all-links" href="/api/logout">Logout</a>
+            <a className="all-links" href="/api/logout">Log Out</a>
           </div> : ""}
       
     </StyledNavBar>

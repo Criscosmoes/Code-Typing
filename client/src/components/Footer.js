@@ -69,7 +69,7 @@ const Footer = () => {
     return (
         <StyledFooter>
             <h3 className="copyright">Copyright © 2021</h3>
-            <h3 className="made--by">Made By: <a href="https://cristian-fernandez.vercel.app/" > Cristian</a> 🙂</h3>
+            <h3 className="made--by">Made By: <a href="https://www.cristianfernandez.dev/" > Cristian</a> 🙂</h3>
         </StyledFooter>
     )
 }
