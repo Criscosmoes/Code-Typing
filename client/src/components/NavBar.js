@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom"; 
 
 import { SiCodesandbox } from "react-icons/si"; 
-import { AiOutlineBars } from "react-icons/ai";  
+import { AiOutlineBars } from "react-icons/ai";
+import { RiArrowLeftCircleLine } from "react-icons/ri"
 
 const StyledNavBar = styled.div`
 
@@ -160,6 +161,11 @@ const StyledNavBar = styled.div`
       padding: 3%
     }
 
+    .link {
+      color: white; 
+
+    }
+
 
     .nav-links {
       position: fixed; 
@@ -273,7 +279,23 @@ const NavBar = ({username}) => {
     }
   }
 
-
+  const isUserloggedIn = (user) => {
+    if (user) {
+      return (
+        <a className="all-links" href="/api/logout">
+         {/*  <RiArrowLeftCircleLine className="icon" /> */}
+          <h2>Log Out</h2>
+        </a>
+      );
+    } else {
+      return (
+        <a className="all-links" href="/auth/google">
+          {/* <FcGoogle className="icon" /> */}
+          <h2>Log in</h2>
+        </a>
+      );
+    }
+  };
 
 
 
@@ -301,7 +323,7 @@ const NavBar = ({username}) => {
             <Link className="all-links" onClick={() => setIsOpen(false)} to="/">Home</Link>
             <Link className="all-links" onClick={() => setIsOpen(false)} to="/leaderboard">Leaderboard</Link>
             <Link className="all-links" onClick={() => setIsOpen(false)} to="/settings">Settings</Link>
-            <a className="all-links" href="/api/logout">Log Out</a>
+            {isUserloggedIn(username)}
           </div> : ""}
       
     </StyledNavBar>
